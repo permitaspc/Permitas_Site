@@ -14,14 +14,14 @@
 
 _Day 1 Focus: Foundation Setup_
 
-- [ ] **Initialize Next.js 15 Application**
+- [x] **Initialize Next.js 15 Application**
   - Command: `npx create-next-app@latest . --typescript --tailwind --eslint`
   - Ensure `package.json` reflects the latest versions.
-- [ ] **Clean Clean Boilerplate**
+- [x] **Clean Clean Boilerplate**
   - Remove default `page.tsx` content.
   - Reset `globals.css` (Preserve Tailwind directives `@tailwind base;`, etc.).
   - Delete unused assets (e.g., `favicon.ico` defaults if replacing, `vercel.svg`).
-- [ ] **Git Initialization**
+- [x] **Git Initialization**
   - Initialize git: `git init`.
   - Create `.gitignore` (ensure `node_modules`, `.next`, `.env` are ignored).
   - Commit initial state: `git add . && git commit -m "chore: initial project setup"`.
@@ -30,29 +30,29 @@ _Day 1 Focus: Foundation Setup_
 
 _Day 2 Focus: Schema Implementation_
 
-- [ ] **Install Dependencies**
+- [x] **Install Dependencies**
   - `npm install @keystatic/core @keystatic/next`
-- [ ] **Keystatic Configuration**
+- [x] **Keystatic Configuration**
   - Create `keystatic.config.ts`.
   - Configure `storage`:
     - `kind: 'local'` (for development).
     - `kind: 'github'` (for production) -> _Pending GitHub App setup in 1.3_.
-- [ ] **Schema Definition (Per `Content_structure.md`)**
-  - [ ] **Collections:**
+- [x] **Schema Definition (Per `Content_structure.md`)**
+  - [x] **Collections:**
     - `Projects` (Path: `content/projects/*`)
     - `Team` (Path: `content/team/*`)
     - `Testimonials`
     - `FAQs`
-  - [ ] **Singletons:**
+  - [x] **Singletons:**
     - `Settings` (Path: `content/settings.json`)
     - `Home Page` (Path: `content/pages/home.json`)
     - `Contact Page` (Path: `content/pages/contact.json`)
     - `Legal Pages` (Privacy/Terms)
-- [ ] **Admin UI Routes**
+- [x] **Admin UI Routes**
   - Create `/app/api/keystatic/[[...params]]/route.tsx`.
   - Create `/app/keystatic/layout.tsx`.
   - Create `/app/keystatic/[[...params]]/page.tsx`.
-- [ ] **Verification**: Run `npm run dev` and visit `/keystatic` to verify Admin UI loads locally.
+- [x] **Verification**: Run `npm run dev` and visit `/keystatic` to verify Admin UI loads locally.
 
 ### 1.3 DevOps & Authentication Pipeline
 
