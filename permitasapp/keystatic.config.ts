@@ -1,10 +1,24 @@
 // keystatic.config.ts
 import { config, fields, collection, singleton } from "@keystatic/core";
 
+// 1. Dynamic Storage Strategy
+// If we have GitHub credentials, use GitHub mode. Otherwise, local.
+const storageStrategy =
+  process.env.KEYSTATIC_GITHUB_CLIENT_ID &&
+  process.env.KEYSTATIC_GITHUB_CLIENT_SECRET &&
+  process.env.NEXT_PUBLIC_GITHUB_REPO
+    ? {
+        kind: "github" as const,
+        repo: process.env.NEXT_PUBLIC_GITHUB_REPO as `${string}/${string}`,
+      }
+    : {
+        kind: "local" as const,
+      };
+
 export default config({
-  storage: {
-    kind: "local", // We switch to 'github' later in Phase 1.3
-  },
+  storage: storageStrategy,
+
+  // 2. Collections (Repeatable Data)
   collections: {
     projects: collection({
       label: "Projects",
@@ -97,6 +111,8 @@ export default config({
       },
     }),
   },
+
+  // 3. Singletons (Global Data)
   singletons: {
     settings: singleton({
       label: "Global Settings",
