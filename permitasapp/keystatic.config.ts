@@ -1,26 +1,23 @@
 // keystatic.config.ts
 import { config, fields, collection, singleton } from "@keystatic/core";
 
-// ROOT CAUSE FIX:
-// 1. We use process.env.NODE_ENV because it is visible to the Browser.
-// 2. We explicitly check for the Repo variable to ensure we don't crash.
+// 1. Dynamic Repo Config (Robust Logic)
 const isProduction = process.env.NODE_ENV === "production";
 const repo = process.env.NEXT_PUBLIC_GITHUB_REPO as `${string}/${string}`;
 
+// 2. Asset Path Constants (The "Hardcoding" Fix)
+// Change these two lines in the future to move all images instantly.
+const ASSET_BASE_PATH = "public/images";
+const ASSET_PUBLIC_PATH = "/images";
+
 const storageStrategy =
   isProduction && repo
-    ? {
-        kind: "github" as const,
-        repo: repo,
-      }
-    : {
-        kind: "local" as const,
-      };
+    ? { kind: "github" as const, repo }
+    : { kind: "local" as const };
 
 export default config({
   storage: storageStrategy,
 
-  // ... (The rest of your collections/singletons remain exactly the same)
   collections: {
     projects: collection({
       label: "Projects",
@@ -31,8 +28,9 @@ export default config({
         title: fields.slug({ name: { label: "Project Title" } }),
         coverImage: fields.image({
           label: "Main Render",
-          directory: "public/images/projects",
-          publicPath: "/images/projects/",
+          // Dynamic Path Injection
+          directory: `${ASSET_BASE_PATH}/projects`,
+          publicPath: `${ASSET_PUBLIC_PATH}/projects/`,
         }),
         location: fields.text({ label: "Location" }),
         status: fields.select({
@@ -60,8 +58,8 @@ export default config({
         gallery: fields.array(
           fields.image({
             label: "Gallery Image",
-            directory: "public/images/projects/gallery",
-            publicPath: "/images/projects/gallery/",
+            directory: `${ASSET_BASE_PATH}/projects/gallery`,
+            publicPath: `${ASSET_PUBLIC_PATH}/projects/gallery/`,
           }),
           { label: "Image Gallery" },
         ),
@@ -83,8 +81,8 @@ export default config({
         role: fields.text({ label: "Job Title" }),
         photo: fields.image({
           label: "Headshot",
-          directory: "public/images/team",
-          publicPath: "/images/team/",
+          directory: `${ASSET_BASE_PATH}/team`,
+          publicPath: `${ASSET_PUBLIC_PATH}/team/`,
         }),
         bio: fields.text({ label: "Short Bio", multiline: true }),
         linkedin: fields.url({ label: "LinkedIn URL" }),
@@ -126,8 +124,8 @@ export default config({
         }),
         logo: fields.image({
           label: "Logo",
-          directory: "public/images/brand",
-          publicPath: "/images/brand/",
+          directory: `${ASSET_BASE_PATH}/brand`,
+          publicPath: `${ASSET_PUBLIC_PATH}/brand/`,
         }),
         socialInstagram: fields.url({ label: "Instagram Link" }),
         socialLinkedIn: fields.url({ label: "LinkedIn Link" }),
@@ -143,8 +141,8 @@ export default config({
         heroSubhead: fields.text({ label: "Sub-headline" }),
         heroImage: fields.image({
           label: "Hero Background",
-          directory: "public/images/pages",
-          publicPath: "/images/pages/",
+          directory: `${ASSET_BASE_PATH}/pages`,
+          publicPath: `${ASSET_PUBLIC_PATH}/pages/`,
         }),
         featuredProjects: fields.array(
           fields.relationship({
