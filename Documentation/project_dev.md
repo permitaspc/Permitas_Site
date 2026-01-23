@@ -58,13 +58,13 @@ _Day 2 Focus: Schema Implementation_
 
 _Day 3 Focus: Connection to the World_
 
-- [ ] **GitHub Hosted Repository**
+- [x] **GitHub Hosted Repository**
   - Create a private repository on GitHub.
   - Push local `main` branch to remote.
-- [ ] **Vercel Deployment**
+- [x] **Vercel Deployment**
   - Import repository to Vercel.
   - Deploy `main` (Initial Build).
-- [ ] **Keystatic GitHub App (The Bridge)**
+- [x] **Keystatic GitHub App (The Bridge)**
   - Create a new GitHub App in Developer Settings.
   - **Homepage URL:** `https://your-vercel-domain.com`
   - **Callback URL:** `https://your-vercel-domain.com/api/keystatic/github/oauth/callback`
@@ -72,13 +72,13 @@ _Day 3 Focus: Connection to the World_
     - `Content`: Read & Write
     - `Metadata`: Read Only
   - Install App on the repository.
-- [ ] **Environment Variables (Vercel)**
+- [x] **Environment Variables (Vercel)**
   - Add the following variables in Vercel Project Settings:
     - `NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG`
     - `KEYSTATIC_GITHUB_CLIENT_ID`
     - `KEYSTATIC_GITHUB_CLIENT_SECRET`
     - `KEYSTATIC_SECRET` (Generated via `openssl rand -base64 32`)
-- [ ] **Update Config**: Ensure `keystatic.config.ts` uses these env vars for the `github` storage strategy.
+- [x] **Update Config**: Ensure `keystatic.config.ts` uses these env vars for the `github` storage strategy.
 
 ### 1.4 Type Generation & Data Access
 
