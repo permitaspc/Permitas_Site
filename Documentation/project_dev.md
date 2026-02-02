@@ -84,10 +84,10 @@ _Day 3 Focus: Connection to the World_
 
 _Day 4 Focus: Developer Experience (DX)_
 
-- [ ] **Type Generation**
+- [x] **Type Generation**
   - Run `npx keystatic generate-types` (or add to `postinstall` script).
   - Allow Keytstatic to infer types from schemas.
-- [ ] **Reader Utilities**
+- [x] **Reader Utilities**
   - Create `lib/keystatic.ts`.
   - Export the `reader` utility using `createReader`.
   - **Goal**: Enable strictly typed data fetching like `await reader.collections.projects.all()`.
