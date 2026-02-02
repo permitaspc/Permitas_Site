@@ -1,7 +1,11 @@
-// app/(site)/layout.tsx
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+
+// 1. Import the Reader API and Components
+import { reader } from "@/app/lib/keystatic";
+import Header from "@/components/global/Header";
+import Footer from "@/components/global/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,26 +18,40 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  // Fallback title if SEO settings (Singleton) fail
   title: {
-    template: "%s | Permitas", // e.g. "Projects | Permitas"
+    template: "%s | Permitas",
     default: "Permitas | Architect Portfolio",
   },
   description: "Modern architecture portfolio and design studio.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // 2. Fetch Global Settings from CMS
+  // This runs on the server at build time (or request time depending on config)
+  const settings = await reader.singletons.settings.read();
+
   return (
-    // Hardcoded lang="en" is acceptable for MVP unless you plan multi-language now.
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        {children}
+        {/* 3. Pass CMS data to Header */}
+        <Header siteTitle={settings?.siteTitle || undefined} />
+
+        {/* Main Content Area - Grows to fill space */}
+        <main className="flex-grow">{children}</main>
+
+        {/* 4. Pass CMS data to Footer */}
+        <Footer
+          contactEmail={settings?.contactEmail || undefined}
+          contactPhone={settings?.contactPhone || undefined}
+          socialInstagram={settings?.socialInstagram || undefined}
+          socialLinkedIn={settings?.socialLinkedIn || undefined}
+        />
       </body>
     </html>
   );

@@ -1,0 +1,34 @@
+Step 1: The "Global Shell" (Components)
+Goal: Fix the missing Header and Footer.
+
+Action: We will create a new directory components/global/.
+
+Task: Create two placeholder components: Header.tsx and Footer.tsx.
+
+Constraint: These will be "dumb" components for now—just simple text (e.g., "Navigation Here") to prove they render. We won't waste time styling them yet.
+
+Step 2: The "Layout Injection" (Integration)
+Goal: Ensure every page on the site automatically gets the Header and Footer.
+
+Action: Modify app/(site)/layout.tsx.
+
+Task: Import the new Header and Footer components and wrap the {children}.
+
+Result: This permanently solves the "Missing Global Components" audit item.
+
+Step 3: The "Route Grid" (Scaffolding)
+Goal: Create the physical files for the missing URLs.
+
+Action: We will create the following folder and file structure inside app/(site)/:
+
+Projects Index: projects/page.tsx (The portfolio grid).
+
+About: about/page.tsx (Company info).
+
+Contact: contact/page.tsx (Forms/Booking).
+
+Dynamic Projects: projects/[slug]/page.tsx (The critical case study template).
+
+Dynamic Legal: legal/[slug]/page.tsx (Privacy/Terms).
+
+Constraint: These pages will contain only a simple <h1>Page Name</h1> to verify routing works. No data fetching logic yet.
