@@ -52,6 +52,20 @@ Executed a sophisticated **Route Group** strategy to decouple the application lo
   - **Public Layout (`(site)/layout.tsx`):** Manages global website assets (Geist Font, Header, Footer) specifically for visitors.
   - **Admin Layout (`keystatic/layout.tsx`):** Dedicated entry point for the CMS that prevents hydration conflicts and CSS leakage between the admin panel and the frontend.
 
+## 4. Frontend Construction (Phase 1.5)
+
+Completed the frontend scaffolding and component architecture, finalizing the "Iron Skeleton".
+
+- **Component Library:**
+  - Implemented `Header` and `Footer` in `components/global/` as the visual anchors for the public site.
+- **Public Route Implementation:**
+  - Built out the core page structure within the `(site)` route group, ensuring URL paths map correctly to the design spec:
+    - `/projects` (Index) & `/projects/[slug]` (Detail)
+    - `/about`
+    - `/contact`
+    - `/legal/[slug]` (Flexible route for Privacy/Terms)
+  - Verified routing logic and component integration.
+
 ---
 
-**Current Status:** The application foundation is robust. The CMS is live locally, the database schema is defined, and the routing architecture is production-ready for content injection.
+**Current Status:** Phase 1 implementation is complete. The application now possesses a fully defined schema, a working backend CMS, and a structured frontend skeleton ready for visual styling and content population. Next steps involve smoke testing the data flow (Phase 1.6) and beginning Phase 2 (Design System & Features).

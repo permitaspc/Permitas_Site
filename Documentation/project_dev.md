@@ -96,17 +96,17 @@ _Day 4 Focus: Developer Experience (DX)_
 
 _Day 5 Focus: Frontend Skeleton_
 
-- [ ] **Global Components**
+- [x] **Global Components**
   - Create `components/global/Header.tsx` (Use `Settings` singleton for Logo/Nav).
   - Create `components/global/Footer.tsx`.
-- [ ] **Route Scaffolding**
-  - `/app/layout.tsx` (Add Font: Geist Sans, integrate Header/Footer).
-  - `/app/page.tsx` (Home).
-  - `/app/projects/page.tsx` (Index).
-  - `/app/projects/[slug]/page.tsx` (Detail).
-  - `/app/about/page.tsx` (Team/Company).
-  - `/app/contact/page.tsx`.
-  - `/app/legal/[slug]/page.tsx` (Privacy/Terms).
+- [x] **Route Scaffolding**
+  - `/app/(site)/layout.tsx` (Add Font: Geist Sans, integrate Header/Footer).
+  - `/app/(site)/page.tsx` (Home).
+  - `/app/(site)/projects/page.tsx` (Index).
+  - `/app/(site)/projects/[slug]/page.tsx` (Detail).
+  - `/app/(site)/about/page.tsx` (Team/Company).
+  - `/app/(site)/contact/page.tsx`.
+  - `/app/(site)/legal/[slug]/page.tsx` (Privacy/Terms).
 
 ### 1.6 Smoke Test & Verification (Go-Live Check)
 
@@ -126,4 +126,4 @@ _Day 6 Focus: Quality Assurance_
 
 ---
 
-**Status:** Ready to Start Phase 1.
+**Status:** Phase 1 Implementation Complete (Pending Final Smoke Tests).
