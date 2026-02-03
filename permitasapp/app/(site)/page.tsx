@@ -1,10 +1,15 @@
 import { reader } from "@/app/lib/keystatic";
+import Link from "next/link"; // Ensure this is imported
+import { Metadata } from "next";
+
+// ... (keep metadata export same as before) ...
+export const metadata: Metadata = {
+  title: "Home",
+  description: "Permitas Architecture Portfolio",
+};
 
 export default async function Home() {
-  // 1. Fetch data from the "Home Page" Singleton
   const homeData = await reader.singletons.homePage.read();
-
-  // 2. Fetch list of all projects
   const projects = await reader.collections.projects.all();
 
   return (
@@ -25,10 +30,11 @@ export default async function Home() {
 
       {projects.length === 0 && (
         <p className="text-yellow-600 bg-yellow-100 p-4 rounded">
+          {/* FIXED: Replaced <a> with <Link> */}
           No projects found. Go to{" "}
-          <a href="/keystatic" className="underline font-bold">
+          <Link href="/keystatic" className="underline font-bold">
             /keystatic
-          </a>{" "}
+          </Link>{" "}
           and create one!
         </p>
       )}
