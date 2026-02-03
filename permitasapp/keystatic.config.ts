@@ -12,7 +12,11 @@ const ASSET_PUBLIC_PATH = "/images";
 
 const storageStrategy =
   isProduction && repo
-    ? { kind: "github" as const, repo }
+    ? {
+        kind: "github" as const,
+        repo,
+        token: process.env.GITHUB_TOKEN,
+      }
     : { kind: "local" as const };
 
 export default config({
