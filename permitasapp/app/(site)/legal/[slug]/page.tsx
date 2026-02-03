@@ -2,9 +2,14 @@ import { reader } from "@/app/lib/keystatic";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
-// 1. Define allowed legal pages
-// Since 'legal' is a Singleton with specific fields, we manually map the slugs
+// 1. Define allowed legal pages as a constant array
 const VALID_PAGES = ["privacy-policy", "terms-of-service"] as const;
+
+// 2. Create a Type Guard to check if a string is a valid slug
+// This allows us to safely check the slug without using 'any'
+function isValidSlug(slug: string): slug is (typeof VALID_PAGES)[number] {
+  return VALID_PAGES.includes(slug as (typeof VALID_PAGES)[number]);
+}
 
 export async function generateStaticParams() {
   return VALID_PAGES.map((slug) => ({ slug }));
@@ -28,16 +33,15 @@ export default async function LegalPage(props: {
 }) {
   const params = await props.params;
 
-  // 2. Validate Slug
-  // If the user tries /legal/random-text, we 404 immediately
-  if (!VALID_PAGES.includes(params.slug as any)) {
+  // 3. Strict Validation (Production Ready)
+  // If the slug is not in our allowlist, 404 immediately.
+  if (!isValidSlug(params.slug)) {
+    console.error(`Invalid legal page accessed: ${params.slug}`); // Debug log
     notFound();
   }
 
-  // 3. Fetch Legal Data
   const legalData = await reader.singletons.legal.read();
 
-  // 4. Select the correct content based on slug
   const content =
     params.slug === "privacy-policy"
       ? legalData?.privacyPolicy
@@ -53,7 +57,6 @@ export default async function LegalPage(props: {
       </h1>
 
       <div className="prose prose-lg prose-gray max-w-none">
-        {/* Logic: If content exists in CMS, show placeholder (renderer comes in Phase 2). Else show empty state. */}
         {content ? (
           <div className="bg-gray-50 p-6 rounded border border-gray-100 text-gray-500 italic">
             <p>

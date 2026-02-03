@@ -1,11 +1,17 @@
 import { reader } from "@/app/lib/keystatic";
+import Link from "next/link"; // Required import
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Home",
+  description: "Permitas Architecture Portfolio",
+};
 
 export default async function Home() {
-  // 1. Fetch data from the "Home Page" Singleton
   const homeData = await reader.singletons.homePage.read();
-
-  // 2. Fetch list of all projects
   const projects = await reader.collections.projects.all();
+
+  console.log(`[DEBUG] Projects found: ${projects.length}`); // Debug log
 
   return (
     <div className="p-10 font-sans">
@@ -25,10 +31,11 @@ export default async function Home() {
 
       {projects.length === 0 && (
         <p className="text-yellow-600 bg-yellow-100 p-4 rounded">
+          {/* CORRECTED: Using <Link> instead of <a> */}
           No projects found. Go to{" "}
-          <a href="/keystatic" className="underline font-bold">
+          <Link href="/keystatic" className="underline font-bold">
             /keystatic
-          </a>{" "}
+          </Link>{" "}
           and create one!
         </p>
       )}
