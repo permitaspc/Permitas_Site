@@ -135,6 +135,17 @@ export default config({
         socialLinkedIn: fields.url({ label: "LinkedIn Link" }),
         contactEmail: fields.text({ label: "Official Email" }),
         contactPhone: fields.text({ label: "Phone Number" }),
+        footerText: fields.text({ label: "Footer Copyright Text" }),
+        navigation: fields.array(
+          fields.object({
+            label: fields.text({ label: "Label" }),
+            link: fields.text({ label: "URL Path" }),
+          }),
+          {
+            label: "Main Navigation",
+            itemLabel: (props) => props.fields.label.value || "Menu Item",
+          },
+        ),
       },
     }),
     homePage: singleton({

@@ -1,6 +1,8 @@
 import { reader } from "@/app/lib/keystatic";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { DocumentRenderer } from "@keystatic/core/renderer";
+import Image from "next/image";
 
 // 1. Generate Static Params
 // This tells Next.js which pages to build at compile time (SSG)
@@ -38,6 +40,10 @@ export default async function ProjectPage(props: {
     notFound();
   }
 
+  // 4. Resolve the Rich Text Content
+  // In Keystatic, the content field is a function we must await
+  const content = await project.description();
+
   return (
     <div className="container mx-auto px-4 py-20">
       <article>
@@ -73,13 +79,36 @@ export default async function ProjectPage(props: {
           </div>
         </header>
 
-        {/* Content Placeholder */}
-        {/* In Phase 2, we will add the Rich Text Renderer and Image Gallery here */}
-        <div className="prose prose-lg max-w-none text-gray-500 italic bg-gray-50 p-10 rounded border border-gray-100">
-          <p>
-            [Project Description and Gallery will be rendered here in Phase 2]
-          </p>
+        {/* Production Ready: Rich Text Content */}
+        <div className="prose prose-lg max-w-none mb-20">
+          <DocumentRenderer document={content} />
         </div>
+
+        {/* Production Ready: Image Gallery */}
+        {project.gallery.length > 0 && (
+          <section className="border-t border-gray-100 pt-16">
+            <h3 className="text-2xl font-bold mb-8">Project Gallery</h3>
+            <div className="grid grid-cols-1 gap-12">
+              {/* FILTER: Remove nulls first so TypeScript knows 'image' is safe */}
+              {project.gallery
+                .filter((img): img is string => img !== null)
+                .map((image, index) => (
+                  <div
+                    key={index}
+                    className="relative w-full aspect-[16/9] bg-gray-50 rounded-lg overflow-hidden shadow-sm"
+                  >
+                    <Image
+                      src={image}
+                      alt={`${project.title} - View ${index + 1}`}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 90vw"
+                    />
+                  </div>
+                ))}
+            </div>
+          </section>
+        )}
       </article>
     </div>
   );

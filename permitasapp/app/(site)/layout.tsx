@@ -40,7 +40,10 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         {/* 3. Pass CMS data to Header */}
-        <Header siteTitle={settings?.siteTitle || undefined} />
+        <Header
+          siteTitle={settings?.siteTitle || undefined}
+          navItems={settings?.navigation || undefined}
+        />
 
         {/* Main Content Area - Grows to fill space */}
         <main className="flex-grow">{children}</main>
@@ -51,6 +54,7 @@ export default async function RootLayout({
           contactPhone={settings?.contactPhone || undefined}
           socialInstagram={settings?.socialInstagram || undefined}
           socialLinkedIn={settings?.socialLinkedIn || undefined}
+          footerText={settings?.footerText || undefined}
         />
       </body>
     </html>

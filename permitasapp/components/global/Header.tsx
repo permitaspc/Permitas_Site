@@ -2,11 +2,19 @@ import Link from "next/link";
 
 interface HeaderProps {
   siteTitle?: string;
-  // In the future, we can add a logo prop here when you upload one
+  // Update to accept the immutable data structure from Keystatic
+  navItems?: readonly { readonly label: string; readonly link: string }[];
 }
 
-export default function Header({ siteTitle }: HeaderProps) {
+export default function Header({ siteTitle, navItems }: HeaderProps) {
   const title = siteTitle || "Permitas";
+  const menu = navItems?.length
+    ? navItems
+    : [
+        { label: "Work", link: "/projects" },
+        { label: "Studio", link: "/about" },
+        { label: "Contact", link: "/contact" },
+      ];
 
   return (
     <header className="w-full border-b border-gray-100 py-6">
@@ -19,30 +27,16 @@ export default function Header({ siteTitle }: HeaderProps) {
         {/* Navigation - Structural Links */}
         <nav>
           <ul className="flex gap-8 text-sm font-medium text-gray-600">
-            <li>
-              <Link
-                href="/projects"
-                className="hover:text-black transition-colors"
-              >
-                Work
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/about"
-                className="hover:text-black transition-colors"
-              >
-                Studio
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/contact"
-                className="hover:text-black transition-colors"
-              >
-                Contact
-              </Link>
-            </li>
+            {menu.map((item) => (
+              <li key={item.link}>
+                <Link
+                  href={item.link}
+                  className="hover:text-black transition-colors"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>

@@ -1,5 +1,6 @@
 import { reader } from "@/app/lib/keystatic";
 import { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Studio",
@@ -33,10 +34,21 @@ export default async function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {teamMembers.map((member) => (
             <article key={member.slug} className="flex flex-col gap-4">
-              {/* Photo Placeholder - We will add the <Image> component in Phase 2 */}
-              <div className="aspect-[3/4] bg-gray-100 flex items-center justify-center text-gray-400">
-                {/* Logic: If photo exists, render it. Else show placeholder. */}
-                <span className="text-sm">Photo: {member.entry.name}</span>
+              {/* Production Ready: Optimized Next.js Image */}
+              <div className="relative aspect-[3/4] bg-gray-100 rounded-lg overflow-hidden">
+                {member.entry.photo ? (
+                  <Image
+                    src={member.entry.photo}
+                    alt={member.entry.name}
+                    fill
+                    className="object-cover hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                ) : (
+                  <div className="flex h-full items-center justify-center bg-gray-200 text-gray-400">
+                    No Photo Available
+                  </div>
+                )}
               </div>
 
               <div>

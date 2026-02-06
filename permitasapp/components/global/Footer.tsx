@@ -3,6 +3,7 @@ interface FooterProps {
   contactPhone?: string;
   socialInstagram?: string;
   socialLinkedIn?: string;
+  footerText?: string;
 }
 
 export default function Footer({
@@ -10,6 +11,7 @@ export default function Footer({
   contactPhone,
   socialInstagram,
   socialLinkedIn,
+  footerText,
 }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
@@ -19,7 +21,8 @@ export default function Footer({
         {/* Left: Copyright */}
         <div className="flex flex-col justify-end">
           <p className="text-sm text-gray-400">
-            &copy; {currentYear} Permitas Architecture. All rights reserved.
+            &copy; {currentYear}{" "}
+            {footerText || "Permitas Architecture. All rights reserved."}
           </p>
         </div>
 

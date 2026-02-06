@@ -57,24 +57,28 @@ export default async function ContactPage() {
 
         {/* Right Column: Form / Booking Area */}
         <div className="bg-gray-50 p-10 rounded-lg min-h-[400px] flex items-center justify-center border border-gray-100">
-          {/* Placeholder for Phase 2: 
-             We will insert the Web3Forms component or Calendly Embed here.
-          */}
-          <div className="text-center">
-            <p className="text-gray-500 mb-4">
-              Contact Form / Booking Widget Area
-            </p>
-            {contactData?.calendlyUrl && (
+          {/* Production Ready: Conditional Action Card */}
+          {contactData?.calendlyUrl ? (
+            <div className="text-center w-full">
+              <h3 className="text-2xl font-bold mb-4">Book a Consultation</h3>
+              <p className="text-gray-600 mb-8">
+                Schedule a 30-minute discovery call to discuss your project
+                requirements.
+              </p>
               <a
                 href={contactData.calendlyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-black text-white px-6 py-3 rounded font-medium hover:bg-gray-800 transition-colors"
+                className="block w-full bg-black text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl"
               >
-                Book Consultation
+                Schedule Now →
               </a>
-            )}
-          </div>
+            </div>
+          ) : (
+            <div className="text-center opacity-50">
+              <p>No booking link available.</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
