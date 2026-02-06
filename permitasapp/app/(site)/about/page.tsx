@@ -1,6 +1,10 @@
 import { reader } from "@/app/lib/keystatic";
 import { Metadata } from "next";
 import Image from "next/image";
+import { notFound } from "next/navigation"; // Added for safety
+
+// FIX: Enable ISR. This updates the page cache every 60 seconds.
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Studio",
@@ -10,6 +14,9 @@ export const metadata: Metadata = {
 export default async function AboutPage() {
   // 1. Fetch team members
   const teamMembers = await reader.collections.team.all();
+
+  // Safety check: if reader fails, handle gracefully (optional but recommended)
+  if (!teamMembers) return notFound();
 
   return (
     <div className="container mx-auto px-4 py-20">
@@ -34,7 +41,6 @@ export default async function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {teamMembers.map((member) => (
             <article key={member.slug} className="flex flex-col gap-4">
-              {/* Production Ready: Optimized Next.js Image */}
               <div className="relative aspect-[3/4] bg-gray-100 rounded-lg overflow-hidden">
                 {member.entry.photo ? (
                   <Image
