@@ -28,18 +28,19 @@
 ## 📅 Phase 2: Core Engine & Content Injection
 
 **Week 2 (Days 8-14)**
-**Goal:** All functional pages are built. Cousin begins data entry (Parallel Workflow).
+**Goal:** All functional pages are built, styled to "Luxury" standard, and mobile-ready.
 
 | Day     | Task ID | Status         | Description               | Technical Specifics                                                                                                   |
 | :------ | :------ | :------------- | :------------------------ | :-------------------------------------------------------------------------------------------------------------------- |
 | **Mon** | **2.1** | **✅ Done**    | **Data Fetching Logic**   | Write Async Server Components to fetch and display raw JSON data for the Home Grid and Project Detail pages.          |
 | **Tue** | **2.2** | **✅ Done**    | **Image Pipeline**        | Implement `next/image` with strict quality settings. **Constraint:** Enforce `sizes` prop to prevent mobile overload. |
 | **Wed** | **2.3** | **⏳ Pending** | **Client Onboarding**     | **MILESTONE:** Send CMS Link + "Image Guide" (PDF) to Cousin. She starts uploading projects _now_.                    |
-| **Thu** | **2.4** | **⏳ Pending** | **Masonry Layout**        | Implement the responsive grid for the Home page. Handle aspect ratio shifts (Portrait vs Landscape renders).          |
-| **Fri** | **2.5** | **⏳ Pending** | **Project Detail View**   | Build the `[slug]/page.tsx`. Style the Rich Text renderer (Headings, Paragraphs) and the scrolling Image Gallery.     |
-| **Sat** | **2.6** | **⏳ Pending** | **Mobile Responsiveness** | QA the layout on Mobile view. Ensure navigation drawer/hamburger menu works.                                          |
+| **Thu** | **2.4** | **⏳ Pending** | **True Masonry Layout**   | Replace CSS Grid with `react-masonry-css` or column-count. Handle aspect ratio shifts gracefully.                     |
+| **Fri** | **2.5** | **⏳ Pending** | **Detail View Polish**    | Style `DocumentRenderer` (Typography, Spacing). Implement "Next/Previous Project" navigation.                         |
+| **Sat** | **2.6** | **⏳ Pending** | **Mobile Navigation**     | Build `MobileMenu` component (Hamburger + Drawer). Ensure touch targets are >44px.                                    |
+| **Sun** | **2.7** | **⏳ Pending** | **Architecture Refactor** | Create `app/lib/data.ts` to abstract `reader` calls. Fix hardcoded values in Header/Footer/Lib.                       |
 
-**✅ Deliverable:** A fully navigable website with placeholder/real content.
+**✅ Deliverable:** A fully navigable, responsive website with "Production-Ready" code structure.
 
 ---
 
