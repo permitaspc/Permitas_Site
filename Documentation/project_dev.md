@@ -128,3 +128,32 @@ _Day 6 Focus: Quality Assurance_
 
 **Status:** Phase 1 Implementation Complete (✅ PRODUCTION READY).
 **Update (2026-02-06):** Post-Refactor Audit Completed. All hardcoded values moved to CMS. Debug artifacts removed. Next.js image optimization active.
+
+## 💾 Technical Stack & AI Conventions
+
+**Context for AI Assistants:** Use these rules to generate code that fits the existing "Iron Skeleton".
+
+### 1. Technology Stack (Frozen)
+
+- **Framework:** Next.js 15 (App Router)
+- **Language:** TypeScript 5.7+ (Strict Mode)
+- **Styling:** Tailwind CSS 4.0
+- **CMS:** Keystatic (Git-based)
+- **Package Manager:** npm
+
+### 2. Implementation Rules
+
+- **Routing:**
+  - Public pages go in `app/(site)/...`
+  - Admin pages go in `app/keystatic/...`
+  - **DO NOT** create pages in the root of `app/` (except `layout.tsx` or `not-found.tsx` if global).
+- **Data Access:**
+  - Use the **Reader API**: `import { reader } from '@/app/lib/keystatic'`
+  - **Do not** fetch JSON files directly using `fs`. Use the `reader` abstraction.
+- **Components:**
+  - Prioritize **Server Components** by default.
+  - Use `'use client'` only for interactive islands (forms, framer-motion animations).
+  - Place shared UI in `components/global/` (Header, Footer) or `components/ui/` (Buttons, Cards).
+- **Assets:**
+  - Reference images as `/images/...` (from `public` folder).
+  - Keystatic handles the upload/pathing automatically in the `content` folder, but the frontend consumes them via public paths.

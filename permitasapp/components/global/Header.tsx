@@ -1,8 +1,8 @@
+// components/global/Header.tsx
 import Link from "next/link";
 
 interface HeaderProps {
   siteTitle?: string;
-  // Update to accept the immutable data structure from Keystatic
   navItems?: readonly { readonly label: string; readonly link: string }[];
 }
 
@@ -17,21 +17,25 @@ export default function Header({ siteTitle, navItems }: HeaderProps) {
       ];
 
   return (
-    <header className="w-full border-b border-gray-100 py-6">
-      <div className="container mx-auto px-4 flex justify-between items-center">
-        {/* Brand / Logo Area */}
-        <Link href="/" className="text-2xl font-bold tracking-tight">
+    // FIXED position + mix-blend-mode: difference is the secret to the "Negative" effect
+    <header className="fixed top-0 left-0 w-full z-50 py-8 mix-blend-difference text-white">
+      <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
+        {/* Brand / Logo */}
+        <Link
+          href="/"
+          className="text-2xl md:text-3xl font-bold tracking-tight uppercase"
+        >
           {title}
         </Link>
 
-        {/* Navigation - Structural Links */}
+        {/* Navigation */}
         <nav>
-          <ul className="flex gap-8 text-sm font-medium text-gray-600">
+          <ul className="flex gap-8 md:gap-12 text-sm md:text-base font-medium tracking-wide uppercase">
             {menu.map((item) => (
               <li key={item.link}>
                 <Link
                   href={item.link}
-                  className="hover:text-black transition-colors"
+                  className="hover:underline underline-offset-4 decoration-1"
                 >
                   {item.label}
                 </Link>

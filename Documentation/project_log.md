@@ -88,3 +88,31 @@ Conducted a comprehensive codebase audit and refactoring session to transition t
   - Validated the "Server Shell" pattern: `layout.tsx` fetches global settings once and passes them down to client-side header/footer components to minimize prop drilling and redundant fetching.
 
 **Verdict:** The codebase is now clean, robust, and highly maintainable. No "Phase 2" placeholders remain that would block a public launch (aside from actual aesthetic design application).
+
+## 6. Artificial Intelligence & Automation Context
+
+**Purpose:** This section provides critical context for AI agents (Claude, ChatGPT, etc.) to understand the project architecture without hallucinating external standards.
+
+### 6.1 Core Architectural Invariants
+
+- **Root Directory Strategy:** strict `app/` directory usage. **NO** `src/` directory.
+- **Route Groups:**
+  - `app/(site)`: Public facing marketing pages (Home, About, Projects).
+  - `app/keystatic`: Admin panel (isolated layout).
+  - `app/api/keystatic`: Backend API handlers.
+- **Data Fetching:**
+  - **Source:** `app/lib/keystatic.ts`
+  - **Method:** `import { reader } from '@/app/lib/keystatic';`
+  - **Pattern:** `await reader.collections.projects.all()` (Server Components Only).
+- **Styling Engine:**
+  - **Tailwind CSS v4**: Zero-runtime, atomic CSS.
+  - **Fonts**: `Geist Sans` (via `next/font/google`).
+- **Image Optimization:**
+  - **Component**: Always use `<Image />` from `next/image`.
+  - **Path**: Images are served from `public/` but referenced in Keystatic via `public/images/...`.
+
+### 6.2 Automation & CI/CD
+
+- **CMS Strategy:** Keystatic runs in `local` mode during dev, `github` mode in production.
+- **Deployment:** Vercel (connected to GitHub).
+- **Environment Variables:** Critical for CMS operation (`NEXT_PUBLIC_GITHUB_REPO`, `GITHUB_TOKEN`, etc.).

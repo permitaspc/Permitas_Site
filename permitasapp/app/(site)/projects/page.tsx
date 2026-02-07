@@ -1,5 +1,6 @@
 import { reader } from "@/app/lib/keystatic";
-import Link from "next/link";
+import ProjectFeed from "@/components/projects/ProjectFeed";
+import { MOCK_PROJECTS } from "@/app/lib/mock-data";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,39 +9,48 @@ export const metadata: Metadata = {
 };
 
 export default async function ProjectsPage() {
-  // 1. Fetch all projects from the CMS
-  const projects = await reader.collections.projects.all();
+  // 1. Fetch Projects
+  const realProjects = await reader.collections.projects.all();
+
+  // LOGIC: Use Mock if Real is Empty
+  const rawProjects = realProjects.length > 0 ? realProjects : MOCK_PROJECTS;
+
+  // 2. Data Sanitization
+  const cleanProjects = rawProjects.map((project) => ({
+    slug: project.slug,
+    entry: {
+      title: project.entry.title,
+      coverImage: project.entry.coverImage,
+      location: project.entry.location,
+      category: project.entry.category,
+      year: project.entry.year,
+    },
+  }));
+
+  const sortedProjects = cleanProjects.sort((a, b) => {
+    return Number(b.entry.year) - Number(a.entry.year);
+  });
 
   return (
-    <div className="container mx-auto px-4 py-20">
-      <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-12">
-        Selected Work
-      </h1>
-
-      {/* 2. The Grid Structure (Scaffolding for Design Phase) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project) => (
-          <Link
-            key={project.slug}
-            href={`/projects/${project.slug}`}
-            className="group block"
-          >
-            {/* Minimal Card Placeholder */}
-            <article className="border border-gray-200 p-6 h-64 flex flex-col justify-end hover:border-black transition-colors">
-              <h2 className="text-xl font-bold">{project.entry.title}</h2>
-              <p className="text-sm text-gray-500 capitalize mt-1">
-                {project.entry.status}
-              </p>
-            </article>
-          </Link>
-        ))}
+    <div className="w-full bg-white pt-32 pb-20">
+      {/* HEADER: "Selected Works"
+        - Moves with the page (not fixed)
+        - Clean Typography based on image 29c942
+        - Container restricted only for text alignment
+      */}
+      <div className="container mx-auto px-6 md:px-12 mb-20 flex justify-between items-end">
+        <h1 className="text-6xl md:text-9xl font-bold tracking-tighter text-black leading-none">
+          Selected Works
+        </h1>
+        <span className="hidden md:block text-sm font-bold tracking-widest uppercase mb-2">
+          (Works)
+        </span>
       </div>
 
-      {projects.length === 0 && (
-        <div className="py-20 text-center text-gray-500">
-          <p>No projects published yet.</p>
-        </div>
-      )}
+      {/* FEED: Full Width Images
+        - Passed sorted projects to the client component
+      */}
+      <ProjectFeed projects={sortedProjects} />
     </div>
   );
 }
