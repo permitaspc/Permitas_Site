@@ -3,6 +3,8 @@ import ProjectFeed from "@/components/projects/ProjectFeed";
 import { MOCK_PROJECTS } from "@/app/lib/mock-data";
 import { Metadata } from "next";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Work",
   description: "Selected architectural projects and case studies.",
@@ -15,12 +17,22 @@ export default async function ProjectsPage() {
   // LOGIC: Use Mock if Real is Empty
   const rawProjects = realProjects.length > 0 ? realProjects : MOCK_PROJECTS;
 
+  const isProd = process.env.NODE_ENV === "production";
+  // Robustly clean the repo string (handles "https://github.com/..." and spaces)
+  const cleanRepo = (process.env.NEXT_PUBLIC_GITHUB_REPO || "")
+    .replace("https://github.com/", "")
+    .replace("http://github.com/", "")
+    .trim();
+
   // 2. Data Sanitization
   const cleanProjects = rawProjects.map((project) => ({
     slug: project.slug,
     entry: {
       title: project.entry.title,
-      coverImage: project.entry.coverImage,
+      coverImage:
+        isProd && project.entry.coverImage
+          ? `https://raw.githubusercontent.com/${cleanRepo}/main/public${project.entry.coverImage}`
+          : project.entry.coverImage,
       location: project.entry.location,
       category: project.entry.category,
       year: project.entry.year,

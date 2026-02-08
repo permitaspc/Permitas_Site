@@ -28,6 +28,9 @@ export default async function ProjectPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  console.log(
+    `[Debug] Rendering Project Page for slug: ${slug} at ${new Date().toISOString()}`,
+  );
   const project = await reader.collections.projects.read(slug);
   const settings = await reader.singletons.settings.read();
 
@@ -44,7 +47,7 @@ export default async function ProjectPage({
   const nextProject = sorted[currentIndex + 1] || sorted[0];
 
   return (
-    <main className="bg-white min-h-screen">
+    <main className="bg-white min-h-screen w-full relative">
       {/* LAYER 0: FIXED HERO (The "Curtain" Background) 
         This stays stuck at the top while the rest scrolls over it.
       */}
