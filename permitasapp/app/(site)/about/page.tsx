@@ -19,7 +19,7 @@ export default async function AboutPage() {
   if (!teamMembers) return notFound();
 
   return (
-    <div className="container mx-auto px-4 py-20">
+    <div className="container mx-auto px-4 pt-20 pb-0">
       {/* Introduction Section */}
       <section className="max-w-3xl mb-24">
         <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-8">

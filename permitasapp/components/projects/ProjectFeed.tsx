@@ -44,7 +44,7 @@ const ProjectCard = ({
   const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
 
   return (
-    <div ref={containerRef} className="w-full mb-1">
+    <div ref={containerRef} className="w-full mb-1 last:mb-0">
       <Link
         href={`/projects/${project.slug}`}
         className="group block w-full relative"

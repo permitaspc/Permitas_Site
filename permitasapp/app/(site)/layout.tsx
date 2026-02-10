@@ -55,6 +55,7 @@ export default async function RootLayout({
           socialInstagram={settings?.socialInstagram || undefined}
           socialLinkedIn={settings?.socialLinkedIn || undefined}
           footerText={settings?.footerText || undefined}
+          siteTitle={settings?.siteTitle || undefined}
         />
       </body>
     </html>

@@ -26,7 +26,7 @@ export default async function Home() {
       </section>
 
       {/* Projects Grid */}
-      <section className="container mx-auto px-4 py-20">
+      <section className="container mx-auto px-4 pt-20 pb-0">
         <h2 className="text-3xl font-bold mb-10 border-b pb-4">
           Selected Works
         </h2>
