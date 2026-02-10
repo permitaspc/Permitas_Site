@@ -10,6 +10,7 @@
 
 **Goal:** A deployed, live URL with a working CMS. Data persists to GitHub.
 **Timeline:** Week 1 (Jan 22 - Jan 28, 2026) -> **DONE**
+**Status Update (Feb 10, 2026):** "Iron Skeleton" is fully operational. Global Footer implemented.
 
 ### 1.1 Repository & Environment Initialization (Done)
 
@@ -64,7 +65,7 @@
 
 - [ ] **Typography & Color System**: Define in Tailwind config / CSS variables.
 - [ ] **Animation Strategy**: Implement `framer-motion` for page transitions and micro-interactions.
-- [ ] **Component Polish**: Upgrade `Header`, `Footer`, `Button`, `Card` with premium styles.
+- [x] **Component Polish**: Upgrade `Header`, `Footer`, `Button`, `Card` with premium styles. (Global Footer Implemented)
 
 ### 2.2 Feature Implementation
 
@@ -113,6 +114,19 @@
 - **CMS Schema (Reference):**
   - **Projects**: `title`, `coverImage`, `gallery` (array), `location`, `status`, `year`, `description` (document).
   - **Settings**: `siteTitle`, `logo`, `navigation` (array), `socials`.
+
+### 3. Critical Architectural Decisions (AI Context)
+
+- **Global Footer Strategy:**
+  - The Footer is **GLOBAL** and managed in `app/(site)/layout.tsx`.
+  - It fetches data from the `Settings` singleton.
+  - **DO NOT** import `<Footer />` in individual pages.
+  - **DO NOT** add conditional logic to hide it on specific pages (e.g., Project Detail) unless explicitly requested.
+
+- **Asset Path Management (Keystatic):**
+  - Images are stored in `public/images/...`.
+  - Keystatic is configured with `directory: 'public/images/...'` but `publicPath: '/images/...'`.
+  - This ensures images resolve correctly both in the CMS and on the frontend (`next/image`).
 
 ### 3. Verification Steps
 
