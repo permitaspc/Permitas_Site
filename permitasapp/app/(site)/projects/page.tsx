@@ -44,7 +44,7 @@ export default async function ProjectsPage() {
   });
 
   return (
-    <div className="w-full bg-white pt-32 pb-20">
+    <div className="w-full bg-white pt-32 pb-0">
       {/* HEADER: "Selected Works"
         - Moves with the page (not fixed)
         - Clean Typography based on image 29c942

@@ -1,9 +1,14 @@
+"use client";
+
+import Link from "next/link";
+
 interface FooterProps {
   contactEmail?: string;
   contactPhone?: string;
   socialInstagram?: string;
   socialLinkedIn?: string;
   footerText?: string;
+  siteTitle?: string;
 }
 
 export default function Footer({
@@ -12,52 +17,103 @@ export default function Footer({
   socialInstagram,
   socialLinkedIn,
   footerText,
+  siteTitle,
 }: FooterProps) {
   const currentYear = new Date().getFullYear();
+  console.log("[Debug] Rendering Global Footer");
 
   return (
-    <footer className="w-full border-t border-gray-100 py-12 mt-20 bg-white">
-      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Left: Copyright */}
-        <div className="flex flex-col justify-end">
-          <p className="text-sm text-gray-400">
-            &copy; {currentYear}{" "}
-            {footerText || "Permitas Architecture. All rights reserved."}
-          </p>
+    <footer className="relative z-50 bg-black text-white px-6 md:px-12 py-24 md:py-32">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-32">
+          {/* Left: Navigation */}
+          <div className="space-y-4">
+            <h3 className="text-sm font-bold tracking-widest text-gray-500 mb-6">
+              MENU
+            </h3>
+            <nav className="flex flex-col gap-2 text-2xl md:text-3xl font-bold">
+              <Link href="/" className="hover:text-gray-400 transition-colors">
+                Home
+              </Link>
+              <Link
+                href="/projects"
+                className="hover:text-gray-400 transition-colors"
+              >
+                Work
+              </Link>
+              <Link
+                href="/about"
+                className="hover:text-gray-400 transition-colors"
+              >
+                Studio
+              </Link>
+              <Link
+                href="/contact"
+                className="hover:text-gray-400 transition-colors"
+              >
+                Contact
+              </Link>
+            </nav>
+          </div>
+
+          {/* Right: Contact Info */}
+          <div className="md:text-right space-y-12">
+            <div>
+              <h3 className="text-sm font-bold tracking-widest text-gray-500 mb-6">
+                CONTACT
+              </h3>
+              <a
+                href={`mailto:${contactEmail || "hello@permitas.com"}`}
+                className="block text-xl md:text-2xl hover:underline mb-2"
+              >
+                {contactEmail || "hello@permitas.com"}
+              </a>
+              <a
+                href={`tel:${contactPhone || "+91 000 000 0000"}`}
+                className="block text-xl md:text-2xl hover:underline"
+              >
+                {contactPhone || "+91 000 000 0000"}
+              </a>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-bold tracking-widest text-gray-500 mb-6">
+                SOCIAL
+              </h3>
+              <div className="flex md:justify-end gap-6 text-lg">
+                {socialInstagram && (
+                  <a
+                    href={socialInstagram}
+                    target="_blank"
+                    className="hover:text-gray-400"
+                  >
+                    Instagram ↗
+                  </a>
+                )}
+                {socialLinkedIn && (
+                  <a
+                    href={socialLinkedIn}
+                    target="_blank"
+                    className="hover:text-gray-400"
+                  >
+                    LinkedIn ↗
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Right: Dynamic Contact Info */}
-        <div className="flex flex-col md:items-end gap-4 text-sm">
-          {contactEmail && (
-            <a href={`mailto:${contactEmail}`} className="hover:underline">
-              {contactEmail}
-            </a>
-          )}
-          {contactPhone && (
-            <span className="text-gray-600">{contactPhone}</span>
-          )}
-
-          <div className="flex gap-4 mt-2">
-            {socialInstagram && (
-              <a
-                href={socialInstagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-black"
-              >
-                Instagram
-              </a>
-            )}
-            {socialLinkedIn && (
-              <a
-                href={socialLinkedIn}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-black"
-              >
-                LinkedIn
-              </a>
-            )}
+        {/* Massive Footer Logo */}
+        <div className="border-t border-white/20 pt-12">
+          <h1 className="text-[15vw] leading-[0.8] font-bold tracking-tighter text-center md:text-left select-none">
+            {siteTitle || "PERMITAS"}
+          </h1>
+          <div className="flex justify-between text-xs md:text-sm font-mono text-gray-500 mt-4 uppercase">
+            <span>
+              © {currentYear} {footerText || "Permitas. All Rights Reserved."}
+            </span>
+            <span>Designed by Permitas</span>
           </div>
         </div>
       </div>

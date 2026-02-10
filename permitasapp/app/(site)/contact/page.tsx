@@ -12,7 +12,7 @@ export default async function ContactPage() {
   const settings = await reader.singletons.settings.read();
 
   return (
-    <div className="container mx-auto px-4 py-20">
+    <div className="container mx-auto px-4 pt-20 pb-0">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
         {/* Left Column: Context & Info */}
         <div>
