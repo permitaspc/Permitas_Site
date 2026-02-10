@@ -26,6 +26,8 @@ const ASSET_BASE_PATH = isGitHubMode
 
 const ASSET_PUBLIC_PATH = "/images";
 
+const CONTENT_PREFIX = isGitHubMode ? "permitasapp/" : "";
+
 export default config({
   storage: storageStrategy,
 
@@ -33,7 +35,7 @@ export default config({
     projects: collection({
       label: "Projects",
       slugField: "title",
-      path: "content/projects/*",
+      path: `${CONTENT_PREFIX}content/projects/*`,
       format: { contentField: "description" },
       schema: {
         title: fields.slug({ name: { label: "Project Title" } }),
@@ -86,7 +88,7 @@ export default config({
     team: collection({
       label: "Team",
       slugField: "name",
-      path: "content/team/*",
+      path: `${CONTENT_PREFIX}content/team/*`,
       schema: {
         name: fields.slug({ name: { label: "Name" } }),
         role: fields.text({ label: "Job Title" }),
@@ -102,7 +104,7 @@ export default config({
     testimonials: collection({
       label: "Testimonials",
       slugField: "client",
-      path: "content/reviews/*",
+      path: `${CONTENT_PREFIX}content/reviews/*`,
       schema: {
         client: fields.slug({ name: { label: "Client Name" } }),
         quote: fields.text({ label: "Review", multiline: true }),
@@ -115,7 +117,7 @@ export default config({
     faqs: collection({
       label: "FAQs",
       slugField: "question",
-      path: "content/faq/*",
+      path: `${CONTENT_PREFIX}content/faq/*`,
       schema: {
         question: fields.slug({ name: { label: "Question" } }),
         answer: fields.document({ label: "Answer", formatting: true }),
@@ -126,7 +128,7 @@ export default config({
   singletons: {
     settings: singleton({
       label: "Global Settings",
-      path: "content/settings",
+      path: `${CONTENT_PREFIX}content/settings`,
       schema: {
         siteTitle: fields.text({ label: "Website Title" }),
         siteDescription: fields.text({
@@ -157,7 +159,7 @@ export default config({
     }),
     homePage: singleton({
       label: "Home Page",
-      path: "content/pages/home",
+      path: `${CONTENT_PREFIX}content/pages/home`,
       schema: {
         heroHeadline: fields.text({ label: "Hero Title" }),
         heroSubhead: fields.text({ label: "Sub-headline" }),
@@ -180,7 +182,7 @@ export default config({
     }),
     contactPage: singleton({
       label: "Contact Page",
-      path: "content/pages/contact",
+      path: `${CONTENT_PREFIX}content/pages/contact`,
       schema: {
         heading: fields.text({ label: "Page Heading" }),
         subtext: fields.text({ label: "Sub-text" }),
@@ -190,7 +192,7 @@ export default config({
     }),
     legal: singleton({
       label: "Legal Pages",
-      path: "content/pages/legal",
+      path: `${CONTENT_PREFIX}content/pages/legal`,
       schema: {
         privacyPolicy: fields.document({
           label: "Privacy Policy Text",
