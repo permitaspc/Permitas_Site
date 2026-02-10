@@ -5,11 +5,6 @@ import { config, fields, collection, singleton } from "@keystatic/core";
 const isProduction = process.env.NODE_ENV === "production";
 const repo = process.env.NEXT_PUBLIC_GITHUB_REPO as `${string}/${string}`;
 
-// 2. Asset Path Constants (The "Hardcoding" Fix)
-// Change these two lines in the future to move all images instantly.
-const ASSET_BASE_PATH = "public/images";
-const ASSET_PUBLIC_PATH = "/images";
-
 const storageStrategy =
   isProduction && repo
     ? {
@@ -18,6 +13,18 @@ const storageStrategy =
         token: process.env.GITHUB_TOKEN,
       }
     : { kind: "local" as const };
+
+// 2. Asset Path Constants (The "Hardcoding" Fix)
+// storageStrategy determines if we are in GitHub mode (Repo Root context) or Local mode (CWD context)
+const isGitHubMode = storageStrategy.kind === "github";
+
+// In GitHub mode, we are at Repo Root, so we need to go into 'permitasapp/public/images'
+// In Local mode, we are likely running 'npm run dev' inside 'permitasapp', so 'public/images' is correct.
+const ASSET_BASE_PATH = isGitHubMode
+  ? "permitasapp/public/images"
+  : "public/images";
+
+const ASSET_PUBLIC_PATH = "/images";
 
 export default config({
   storage: storageStrategy,
