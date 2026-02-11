@@ -17,6 +17,13 @@ interface TeamMember {
 export default function TeamCard({ member }: { member: TeamMember }) {
   const [isHovered, setIsHovered] = useState(false);
 
+  // Debug: Check bio length to tune clamping
+  if (member.entry.bio && member.entry.bio.length > 200) {
+    console.log(
+      `[Debug] Long bio detected for ${member.entry.name}: ${member.entry.bio.length} chars`,
+    );
+  }
+
   return (
     <div className="relative min-w-[300px] w-[85vw] md:w-[400px] flex-shrink-0 snap-center md:snap-align-none group">
       {/* 
@@ -65,7 +72,10 @@ export default function TeamCard({ member }: { member: TeamMember }) {
               transition={{ duration: 0.3, ease: "easeOut" }}
               className="absolute inset-0 flex items-center justify-center p-8 bg-black/90 text-white"
             >
-              <p className="text-lg md:text-xl font-medium leading-relaxed font-serif text-center">
+              <p
+                className="text-sm md:text-base leading-relaxed font-serif text-center line-clamp-6 md:line-clamp-8"
+                title={member.entry.bio} // Tooltip for full text
+              >
                 &quot;{member.entry.bio || "Member of the Permitas team."}&quot;
               </p>
             </motion.div>
