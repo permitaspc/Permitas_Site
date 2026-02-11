@@ -1,0 +1,10 @@
+﻿
+C:\Users\Dinesh\Documents\mp\Permitas\permitasapp\app\(site)\about\page.tsx
+  4:8  warning  'Image' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Dinesh\Documents\mp\Permitas\permitasapp\components\team\TeamCard.tsx
+  65:17  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  65:70  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+Γ£û 3 problems (2 errors, 1 warning)
+
