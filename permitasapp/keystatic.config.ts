@@ -204,5 +204,22 @@ export default config({
         }),
       },
     }),
+    aboutPage: singleton({
+      label: "About Page",
+      path: `${CONTENT_PREFIX}content/pages/about`,
+      schema: {
+        stats: fields.array(
+          fields.object({
+            value: fields.text({ label: "Value (e.g. 100+)" }),
+            label: fields.text({ label: "Label (e.g. Projects)" }),
+          }),
+          {
+            label: "Stats Bar",
+            itemLabel: (props) =>
+              `${props.fields.value.value} - ${props.fields.label.value}`,
+          },
+        ),
+      },
+    }),
   },
 });
