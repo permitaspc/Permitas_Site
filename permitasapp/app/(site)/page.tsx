@@ -2,33 +2,38 @@ import { reader } from "@/app/lib/keystatic";
 import Link from "next/link"; // Required import
 import { Metadata } from "next";
 
+// Import new Home Components
+import Hero from "@/components/home/Hero";
+import MissionStatement from "@/components/home/MissionStatement";
+import ServicesPillars from "@/components/home/ServicesPillars";
+import ProcessFlow from "@/components/home/ProcessFlow";
+import HomeTestimonials from "@/components/home/HomeTestimonials";
+
 export const metadata: Metadata = {
-  title: "Home",
-  description: "Permitas Architecture Portfolio",
+  title: "Permitas | Planning & Design",
+  description: "Expert Planning & Building Control Support Across England",
 };
 
 export default async function Home() {
-  const homeData = await reader.singletons.homePage.read();
+  // We basically ignore the old 'homeData' singleton for now as we are hardcoding the new structure per the design plan
+  // But we still fetch projects for the 'Selected Works' section
   const projects = await reader.collections.projects.all();
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-gray-50 py-24 px-4 text-center">
-        <div className="container mx-auto max-w-4xl">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight text-gray-900">
-            {homeData?.heroHeadline || "Permitas Architecture"}
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-600 leading-relaxed">
-            {homeData?.heroSubhead}
-          </p>
-        </div>
-      </section>
+    // WRAPPER: Force Dark Theme for Homepage Only
+    <div className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
+      <Hero />
 
-      {/* Projects Grid */}
-      <section className="container mx-auto px-4 pt-20 pb-0">
-        <h2 className="text-3xl font-bold mb-10 border-b pb-4">
-          Selected Works
+      <MissionStatement />
+
+      <ServicesPillars />
+
+      <ProcessFlow />
+
+      {/* Selected Works - Re-styled for Dark Theme */}
+      <section className="container mx-auto px-6 md:px-12 py-24 border-t border-white/10">
+        <h2 className="text-sm font-mono text-gray-400 tracking-widest uppercase mb-16 text-left">
+          (04) Selected Works
         </h2>
 
         {projects.length > 0 ? (
@@ -37,43 +42,40 @@ export default async function Home() {
               <Link
                 key={project.slug}
                 href={`/projects/${project.slug}`}
-                className="group block bg-white rounded-lg overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300"
+                className="group block"
               >
-                {/* Title Area */}
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">
-                    {project.entry.title}
-                  </h3>
-                  <div className="flex items-center justify-between text-sm text-gray-500">
-                    <span className="capitalize">{project.entry.category}</span>
-                    <span
-                      className={`px-2 py-1 rounded-full text-xs ${
-                        project.entry.status === "completed"
-                          ? "bg-green-100 text-green-800"
-                          : "bg-orange-100 text-orange-800"
-                      }`}
-                    >
+                {/* Image Placeholder / Card */}
+                <div className="relative aspect-[4/3] bg-neutral-900 overflow-hidden mb-4 border border-white/10 group-hover:border-white/30 transition-colors">
+                  {/* If we had an image, it would go here. For now, a subtle gradient. */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-neutral-800 to-neutral-900 group-hover:scale-105 transition-transform duration-700" />
+
+                  <div className="absolute bottom-4 left-4">
+                    <span className="px-2 py-1 bg-white text-black text-xs font-bold uppercase tracking-widest">
                       {project.entry.status}
                     </span>
                   </div>
+                </div>
+
+                {/* Text */}
+                <div>
+                  <h3 className="text-xl font-bold uppercase tracking-tight group-hover:underline underline-offset-4 decoration-1">
+                    {project.entry.title}
+                  </h3>
+                  <span className="text-sm text-gray-500 capitalize font-mono">
+                    {project.entry.category}
+                  </span>
                 </div>
               </Link>
             ))}
           </div>
         ) : (
-          <div className="text-center py-20 bg-gray-50 rounded-lg border border-dashed border-gray-300">
-            <p className="text-gray-500 mb-4">
-              No projects have been published yet.
-            </p>
-            <Link
-              href="/keystatic"
-              className="inline-block bg-black text-white px-6 py-2 rounded-md hover:bg-gray-800 transition"
-            >
-              Open CMS to Add Projects
-            </Link>
+          <div className="text-center py-20 border border-dashed border-white/20 rounded-lg">
+            <p className="text-gray-500 mb-4">No projects found.</p>
           </div>
         )}
       </section>
+
+      <HomeTestimonials />
     </div>
   );
 }
