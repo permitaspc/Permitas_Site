@@ -11,10 +11,15 @@ const repo = (process.env.NEXT_PUBLIC_GITHUB_REPO || "").replace(
 
 console.log(`[Keystatic Config] Env: ${process.env.NODE_ENV}, Repo: ${repo}`);
 
+// 2. Build Mode Detection (Fix for Vercel Build)
+// When running in Vercel CI (Build), we want to use the File System (Local Mode)
+// to ensure the 'reader' can find files in the cloned directory structure.
+const isBuild = process.env.CI === "1";
+
 // Force local mode for robustness during development/build without valid tokens
 // const storageStrategy = { kind: "local" as const };
 const storageStrategy =
-  isProduction && repo
+  isProduction && repo && !isBuild
     ? {
         kind: "github" as const,
         repo,
