@@ -10,5 +10,5 @@
    You can add global styles below if needed.
 */
 body {
-  @apply bg-black text-white;
+  @apply bg-white text-black;
 }
