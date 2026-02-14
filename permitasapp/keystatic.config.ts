@@ -2,21 +2,26 @@
 import { config, fields, collection, singleton } from "@keystatic/core";
 
 // 1. Dynamic Repo Config (Robust Logic)
+// 1. Dynamic Repo Config (Robust Logic)
 const isProduction = process.env.NODE_ENV === "production";
 const repo = (process.env.NEXT_PUBLIC_GITHUB_REPO || "").replace(
   "https://github.com/",
   "",
 ) as `${string}/${string}`;
 
+console.log(`[Keystatic Config] Env: ${process.env.NODE_ENV}, Repo: ${repo}`);
+
 // Force local mode for robustness during development/build without valid tokens
 // const storageStrategy = { kind: "local" as const };
 const storageStrategy =
-  isProduction && repo && process.env.KEYSTATIC_GITHUB_CLIENT_ID
+  isProduction && repo
     ? {
         kind: "github" as const,
         repo,
       }
     : { kind: "local" as const };
+
+console.log(`[Keystatic Config] Storage Strategy: ${storageStrategy.kind}`);
 
 // 2. Asset Path Constants (The "Hardcoding" Fix)
 // storageStrategy determines if we are in GitHub mode (Repo Root context) or Local mode (CWD context)
