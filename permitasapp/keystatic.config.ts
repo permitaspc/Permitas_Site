@@ -3,23 +3,25 @@ import { config, fields, collection, singleton } from "@keystatic/core";
 
 // 1. Dynamic Repo Config (Robust Logic)
 const isProduction = process.env.NODE_ENV === "production";
-const repo = process.env.NEXT_PUBLIC_GITHUB_REPO as `${string}/${string}`;
+const repo = (process.env.NEXT_PUBLIC_GITHUB_REPO || "").replace(
+  "https://github.com/",
+  "",
+) as `${string}/${string}`;
 
 // Force local mode for robustness during development/build without valid tokens
-const storageStrategy = { kind: "local" as const };
-// const storageStrategy =
-//   isProduction && repo && process.env.GITHUB_TOKEN
-//     ? {
-//         kind: "github" as const,
-//         repo,
-//         token: process.env.GITHUB_TOKEN,
-//       }
-//     : { kind: "local" as const };
+// const storageStrategy = { kind: "local" as const };
+const storageStrategy =
+  isProduction && repo && process.env.KEYSTATIC_GITHUB_CLIENT_ID
+    ? {
+        kind: "github" as const,
+        repo,
+      }
+    : { kind: "local" as const };
 
 // 2. Asset Path Constants (The "Hardcoding" Fix)
 // storageStrategy determines if we are in GitHub mode (Repo Root context) or Local mode (CWD context)
-const isGitHubMode = false; // Forced to false because storageStrategy is hardcoded to local above
-// const isGitHubMode = storageStrategy.kind === "github";
+// const isGitHubMode = false; // Forced to false because storageStrategy is hardcoded to local above
+const isGitHubMode = storageStrategy.kind === "github";
 
 // In GitHub mode, we are at Repo Root, so we need to go into 'permitasapp/public/images'
 // In Local mode, we are likely running 'npm run dev' inside 'permitasapp', so 'public/images' is correct.
