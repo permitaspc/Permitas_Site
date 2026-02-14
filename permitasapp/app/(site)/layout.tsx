@@ -7,6 +7,7 @@ import { reader } from "@/app/lib/keystatic";
 import Header from "@/components/global/Header";
 import Footer from "@/components/global/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
+import LoadingScreen from "@/components/global/LoadingScreen";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -61,6 +62,7 @@ export default async function RootLayout({
             siteTitle={settings?.siteTitle || undefined}
           />
         </SmoothScroll>
+        <LoadingScreen />
       </body>
     </html>
   );
