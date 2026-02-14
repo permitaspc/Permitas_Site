@@ -164,13 +164,63 @@ export default config({
       label: "Home Page",
       path: `${CONTENT_PREFIX}content/pages/home`,
       schema: {
+        // --- Hero Section ---
         heroHeadline: fields.text({ label: "Hero Title" }),
         heroSubhead: fields.text({ label: "Sub-headline" }),
+        heroVideoFile: fields.file({
+          label: "Hero Video File (Upload)",
+          description:
+            "Upload a small .mp4 file (Max 10MB recommended). Prioritized over the URL below.",
+          directory: `${ASSET_BASE_PATH}/videos`,
+          publicPath: `${ASSET_PUBLIC_PATH}/videos/`,
+          validation: { isRequired: false },
+        }),
+        heroVideoUrl: fields.text({
+          label: "Hero Background Video URL",
+          description:
+            "Direct link to .mp4 file (e.g. Vimeo direct link, AWS S3, Pexels). Overrides image if present.",
+        }),
         heroImage: fields.image({
-          label: "Hero Background",
+          label: "Hero Fallback Image",
           directory: `${ASSET_BASE_PATH}/pages`,
           publicPath: `${ASSET_PUBLIC_PATH}/pages/`,
         }),
+
+        // --- Mission Statement (Storyboard) ---
+        missionLine1: fields.text({ label: "Mission Line 1 (Precision)" }),
+        missionLine2: fields.text({ label: "Mission Line 2 (Trust)" }),
+        missionLine3: fields.text({ label: "Mission Line 3 (Approval)" }),
+        missionBody: fields.text({
+          label: "Mission Body Text",
+          multiline: true,
+        }),
+
+        // --- Services Section ---
+        services: fields.array(
+          fields.object({
+            title: fields.text({ label: "Service Title" }),
+            description: fields.text({ label: "Description", multiline: true }),
+            linkUrl: fields.text({ label: "Link URL" }),
+          }),
+          {
+            label: "Services List",
+            itemLabel: (props) => props.fields.title.value || "Service Item",
+          },
+        ),
+
+        // --- Process Section ---
+        processSteps: fields.array(
+          fields.object({
+            title: fields.text({ label: "Step Title" }),
+            description: fields.text({ label: "Description", multiline: true }),
+          }),
+          {
+            label: "Process Flow Steps",
+            itemLabel: (props) => props.fields.title.value || "Process Step",
+          },
+        ),
+
+        // --- Selected Works ---
         featuredProjects: fields.array(
           fields.relationship({
             label: "Project",
@@ -179,6 +229,18 @@ export default config({
           {
             label: "Featured Work",
             itemLabel: (props) => props.value || "Select Project",
+          },
+        ),
+
+        // --- Testimonials Section ---
+        testimonialSelection: fields.array(
+          fields.relationship({
+            label: "Testimonial",
+            collection: "testimonials",
+          }),
+          {
+            label: "Testimonials to Display",
+            itemLabel: (props) => props.value || "Select Testimonial",
           },
         ),
       },

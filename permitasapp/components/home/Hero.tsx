@@ -1,19 +1,49 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
 
-export default function Hero() {
+interface HeroProps {
+  headline?: string;
+  subhead?: string;
+  videoFile?: string | null;
+  videoUrl?: string;
+  fallbackImage?: string | null;
+}
+
+export default function Hero({
+  headline,
+  subhead,
+  videoFile,
+  videoUrl,
+  fallbackImage,
+}: HeroProps) {
   const [videoLoaded, setVideoLoaded] = useState(false);
+
+  // Defaults
+  const textHeadline = headline || (
+    <>
+      Bringing Your <br />
+      <span className="text-gray-400">Vision to Life.</span>
+    </>
+  );
+  const textSubhead =
+    subhead || "Expert Planning & Building Control Support Across England";
+  const videoSrc =
+    videoFile ||
+    videoUrl ||
+    "https://videos.pexels.com/video-files/3129957/3129957-hd_1920_1080_25fps.mp4";
+
+  // Parallax for Hero Background
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 1000], [0, 400]);
 
   return (
     <section className="relative h-screen w-full overflow-hidden bg-black text-white flex items-center justify-center">
       {/* Video Background Layer */}
-      <div className="absolute inset-0 z-0">
+      <motion.div style={{ y }} className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-black/40 z-10" />{" "}
         {/* Overlay for text readability */}
-        {/* Placeholder for Video - Replace src with actual asset later */}
-        {/* Using a high-quality abstract architectural video placeholder or gradient */}
         <video
           autoPlay
           loop
@@ -23,14 +53,13 @@ export default function Hero() {
           className={`w-full h-full object-cover transition-opacity duration-1000 ${
             videoLoaded ? "opacity-60" : "opacity-0"
           }`}
-          // This is a placeholder nature/architecture abstract video
-          src="https://videos.pexels.com/video-files/3129957/3129957-hd_1920_1080_25fps.mp4"
+          src={videoSrc}
         />
         {/* Fallback gradient while video loads */}
         {!videoLoaded && (
           <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-black" />
         )}
-      </div>
+      </motion.div>
 
       {/* Content Layer */}
       <div className="relative z-20 container mx-auto px-6 text-center">
@@ -41,13 +70,20 @@ export default function Hero() {
         >
           {/* Main Narrative Headline (Mino Style) */}
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6 uppercase leading-none">
-            Bringing Your <br />
-            <span className="text-gray-400">Vision to Life.</span>
+            {typeof headline === "string"
+              ? // If it's a string from CMS, we might need to handle line breaks if they put them there,
+                // but usually simple text. For tailored styling including span, we might rely on the default
+                // if the user leaves it empty, OR we render the text straight.
+                // To keep the "Visual Style" of the gray span, we might need to parse rich text,
+                // OR we just render the raw string and lose the span color for now unless we add a rich text field.
+                // Given the user wants *control*, we render their text.
+                headline
+              : textHeadline}
           </h1>
 
           {/* Subheadline (Permitas Content) */}
           <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto uppercase tracking-widest font-mono">
-            Expert Planning & Building Control Support Across England
+            {textSubhead}
           </p>
 
           {/* CTA Button */}

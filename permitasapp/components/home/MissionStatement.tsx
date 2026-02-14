@@ -3,7 +3,19 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
-export default function MissionStatement() {
+interface MissionProps {
+  line1?: string;
+  line2?: string;
+  line3?: string;
+  body?: string;
+}
+
+export default function MissionStatement({
+  line1,
+  line2,
+  line3,
+  body,
+}: MissionProps) {
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -28,13 +40,26 @@ export default function MissionStatement() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tighter leading-none mb-10">
             <motion.span style={{ opacity: opacity1 }} className="block">
-              We design with <span className="text-gray-500">precision.</span>
+              {line1 || (
+                <>
+                  We design with{" "}
+                  <span className="text-gray-500">precision.</span>
+                </>
+              )}
             </motion.span>
             <motion.span style={{ opacity: opacity2 }} className="block">
-              We build <span className="text-gray-500">trust.</span>
+              {line2 || (
+                <>
+                  We build <span className="text-gray-500">trust.</span>
+                </>
+              )}
             </motion.span>
             <motion.span style={{ opacity: opacity3 }} className="block">
-              We deliver <span className="text-white">approval.</span>
+              {line3 || (
+                <>
+                  We deliver <span className="text-white">approval.</span>
+                </>
+              )}
             </motion.span>
           </h2>
 
@@ -42,9 +67,8 @@ export default function MissionStatement() {
             style={{ opacity: opacity4 }}
             className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed"
           >
-            Art + Strategy + Regulation are the pillars that sustain our
-            relentless pursuit to get your project approved. Regardless of
-            complexity, any vision can be realized when presented the right way.
+            {body ||
+              "Art + Strategy + Regulation are the pillars that sustain our relentless pursuit to get your project approved. Regardless of complexity, any vision can be realized when presented the right way."}
           </motion.p>
         </div>
       </div>

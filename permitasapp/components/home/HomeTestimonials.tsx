@@ -1,6 +1,6 @@
 "use client";
 
-const testimonials = [
+const defaultTestimonials = [
   {
     quote:
       "Working with Permitas was a great experience. Their knowledge of planning regulations combined with creative solutions helped us get approval on a difficult site.",
@@ -21,7 +21,29 @@ const testimonials = [
   },
 ];
 
-export default function HomeTestimonials() {
+interface TestimonialEntry {
+  slug: string;
+  entry: {
+    client: string;
+    quote: string;
+    // role is currently missing in schema, so we default
+  };
+}
+
+interface HomeTestimonialsProps {
+  items?: TestimonialEntry[];
+}
+
+export default function HomeTestimonials({ items }: HomeTestimonialsProps) {
+  const displayItems =
+    items && items.length > 0
+      ? items.map((t) => ({
+          quote: t.entry.quote,
+          author: t.entry.client,
+          role: "Verified Client", // Schema update pending for Role field
+        }))
+      : defaultTestimonials;
+
   return (
     <section className="bg-black text-white py-24 px-6 md:px-12 border-t border-white/10">
       <div className="container mx-auto">
@@ -30,7 +52,7 @@ export default function HomeTestimonials() {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {testimonials.map((t, i) => (
+          {displayItems.map((t, i) => (
             <div key={i} className="flex flex-col justify-between">
               <p className="text-xl md:text-2xl leading-relaxed font-norma mb-8">
                 &ldquo;{t.quote}&rdquo;
