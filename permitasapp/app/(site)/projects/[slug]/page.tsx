@@ -32,7 +32,7 @@ export default async function ProjectPage({
     `[Debug] Rendering Project Page for slug: ${slug} at ${new Date().toISOString()}`,
   );
   const project = await reader.collections.projects.read(slug);
-  const settings = await reader.singletons.settings.read();
+  // const settings = await reader.singletons.settings.read(); // Unused
 
   if (!project) notFound();
 

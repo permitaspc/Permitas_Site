@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react"; // Ideally use lucide-react if available, else SVG
+// import Link from "next/link"; // Unused
+// import { ArrowUpRight } from "lucide-react"; // Unused
 
 // Default Data adapted from Permitas site
 const defaultServices = [

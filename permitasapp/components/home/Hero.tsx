@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface HeroProps {
   headline?: string;
@@ -16,7 +16,7 @@ export default function Hero({
   subhead,
   videoFile,
   videoUrl,
-  fallbackImage,
+  // fallbackImage, // Unused
 }: HeroProps) {
   const [videoLoaded, setVideoLoaded] = useState(false);
 
