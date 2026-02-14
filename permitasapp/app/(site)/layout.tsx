@@ -6,6 +6,7 @@ import "./globals.css";
 import { reader } from "@/app/lib/keystatic";
 import Header from "@/components/global/Header";
 import Footer from "@/components/global/Footer";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,26 +38,29 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
+        suppressHydrationWarning={true}
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        {/* 3. Pass CMS data to Header */}
-        <Header
-          siteTitle={settings?.siteTitle || undefined}
-          navItems={settings?.navigation || undefined}
-        />
+        <SmoothScroll>
+          {/* 3. Pass CMS data to Header */}
+          <Header
+            siteTitle={settings?.siteTitle || undefined}
+            navItems={settings?.navigation || undefined}
+          />
 
-        {/* Main Content Area - Grows to fill space */}
-        <main className="flex-grow">{children}</main>
+          {/* Main Content Area - Grows to fill space */}
+          <main className="flex-grow">{children}</main>
 
-        {/* 4. Pass CMS data to Footer */}
-        <Footer
-          contactEmail={settings?.contactEmail || undefined}
-          contactPhone={settings?.contactPhone || undefined}
-          socialInstagram={settings?.socialInstagram || undefined}
-          socialLinkedIn={settings?.socialLinkedIn || undefined}
-          footerText={settings?.footerText || undefined}
-          siteTitle={settings?.siteTitle || undefined}
-        />
+          {/* 4. Pass CMS data to Footer */}
+          <Footer
+            contactEmail={settings?.contactEmail || undefined}
+            contactPhone={settings?.contactPhone || undefined}
+            socialInstagram={settings?.socialInstagram || undefined}
+            socialLinkedIn={settings?.socialLinkedIn || undefined}
+            footerText={settings?.footerText || undefined}
+            siteTitle={settings?.siteTitle || undefined}
+          />
+        </SmoothScroll>
       </body>
     </html>
   );

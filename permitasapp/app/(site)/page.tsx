@@ -1,79 +1,169 @@
 import { reader } from "@/app/lib/keystatic";
-import Link from "next/link"; // Required import
+import Link from "next/link";
+import NextImage from "next/image";
 import { Metadata } from "next";
 
+// Import new Home Components
+import Hero from "@/components/home/Hero";
+import MissionStatement from "@/components/home/MissionStatement";
+import ServicesPillars from "@/components/home/ServicesPillars";
+import ProcessFlow from "@/components/home/ProcessFlow";
+import HomeTestimonials from "@/components/home/HomeTestimonials";
+
 export const metadata: Metadata = {
-  title: "Home",
-  description: "Permitas Architecture Portfolio",
+  title: "Permitas | Planning & Design",
+  description: "Expert Planning & Building Control Support Across England",
 };
 
 export default async function Home() {
+  // 1. Fetch Homepage Singleton Data
   const homeData = await reader.singletons.homePage.read();
-  const projects = await reader.collections.projects.all();
+
+  // DEBUG LOGGING (User Request)
+  console.log("------------------------------------------------");
+  console.log("DEBUG [Home]: Fetched Singleton Data");
+  console.log(
+    "Hero Video File:",
+    homeData?.heroVideoFile ? "Uploaded" : "None",
+  );
+  console.log(
+    "Hero Video URL:",
+    homeData?.heroVideoUrl ? "Present" : "Missing",
+  );
+  console.log(
+    "Mission Lines:",
+    homeData?.missionLine1,
+    homeData?.missionLine2,
+    homeData?.missionLine3,
+  );
+  console.log("Services Count:", homeData?.services?.length ?? 0);
+  console.log("Process Steps Count:", homeData?.processSteps?.length ?? 0);
+  console.log("------------------------------------------------");
+
+  // 2. Resolve Featured Projects
+  // If user selected projects in CMS, use them. Otherwise, fallback to latest 3.
+  const allProjects = await reader.collections.projects.all();
+  let featuredProjects = [];
+
+  if (homeData?.featuredProjects && homeData.featuredProjects.length > 0) {
+    // Filter all projects to find the selected ones, preserving order if possible or just filtering
+    // Note: Keystatic relationship returns an array of slugs (strings)
+    const selectedSlugs = homeData.featuredProjects.filter(
+      (s): s is string => typeof s === "string",
+    );
+    featuredProjects = allProjects.filter((p) =>
+      selectedSlugs.includes(p.slug),
+    );
+  } else {
+    // Fallback: Recent 3
+    featuredProjects = allProjects.slice(0, 3);
+  }
+
+  // DEBUG LOGGING - Projects
+  console.log("DEBUG [Home]: Featured Projects");
+  featuredProjects.forEach((p) => {
+    console.log(`- Project: ${p.entry.title}, Image: ${p.entry.coverImage}`);
+  });
+
+  // 3. Resolve Testimonials
+  const allTestimonials = await reader.collections.testimonials.all();
+  let displayTestimonials = [];
+
+  if (
+    homeData?.testimonialSelection &&
+    homeData.testimonialSelection.length > 0
+  ) {
+    const selectedSlugs = homeData.testimonialSelection.filter(
+      (s): s is string => typeof s === "string",
+    );
+    displayTestimonials = allTestimonials.filter((t) =>
+      selectedSlugs.includes(t.slug),
+    );
+  } else {
+    // Fallback: Recent 3
+    displayTestimonials = allTestimonials.slice(0, 3);
+  }
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-gray-50 py-24 px-4 text-center">
-        <div className="container mx-auto max-w-4xl">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight text-gray-900">
-            {homeData?.heroHeadline || "Permitas Architecture"}
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-600 leading-relaxed">
-            {homeData?.heroSubhead}
-          </p>
-        </div>
-      </section>
+    // WRAPPER: Force Dark Theme for Homepage Only
+    <div className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
+      <Hero
+        headline={homeData?.heroHeadline}
+        subhead={homeData?.heroSubhead}
+        videoFile={homeData?.heroVideoFile}
+        videoUrl={homeData?.heroVideoUrl}
+        fallbackImage={homeData?.heroImage}
+      />
 
-      {/* Projects Grid */}
-      <section className="container mx-auto px-4 pt-20 pb-0">
-        <h2 className="text-3xl font-bold mb-10 border-b pb-4">
-          Selected Works
+      <MissionStatement
+        line1={homeData?.missionLine1}
+        line2={homeData?.missionLine2}
+        line3={homeData?.missionLine3}
+        body={homeData?.missionBody}
+      />
+
+      <ServicesPillars services={homeData?.services} />
+
+      <ProcessFlow steps={homeData?.processSteps} />
+
+      {/* Selected Works - Re-styled for Dark Theme */}
+      <section className="container mx-auto px-6 md:px-12 py-24 border-t border-white/10">
+        <h2 className="text-sm font-mono text-gray-400 tracking-widest uppercase mb-16 text-left">
+          (04) Selected Works
         </h2>
 
-        {projects.length > 0 ? (
+        {featuredProjects.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project) => (
+            {featuredProjects.map((project) => (
               <Link
                 key={project.slug}
                 href={`/projects/${project.slug}`}
-                className="group block bg-white rounded-lg overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300"
+                className="group block"
               >
-                {/* Title Area */}
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">
-                    {project.entry.title}
-                  </h3>
-                  <div className="flex items-center justify-between text-sm text-gray-500">
-                    <span className="capitalize">{project.entry.category}</span>
-                    <span
-                      className={`px-2 py-1 rounded-full text-xs ${
-                        project.entry.status === "completed"
-                          ? "bg-green-100 text-green-800"
-                          : "bg-orange-100 text-orange-800"
-                      }`}
-                    >
+                {/* Image Placeholder / Card */}
+                <div className="relative aspect-[4/3] bg-neutral-900 overflow-hidden mb-4 border border-white/10 group-hover:border-white/30 transition-colors">
+                  {/* If we had an image, it would go here. For now, a subtle gradient. */}
+                  {!project.entry.coverImage && (
+                    <div className="absolute inset-0 bg-gradient-to-tr from-neutral-800 to-neutral-900 group-hover:scale-105 transition-transform duration-700" />
+                  )}
+
+                  {/* Real Image if available */}
+                  {project.entry.coverImage && (
+                    <NextImage
+                      src={project.entry.coverImage}
+                      alt={project.entry.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                  )}
+
+                  <div className="absolute bottom-4 left-4 z-10">
+                    <span className="px-2 py-1 bg-white text-black text-xs font-bold uppercase tracking-widest">
                       {project.entry.status}
                     </span>
                   </div>
+                </div>
+
+                {/* Text */}
+                <div>
+                  <h3 className="text-xl font-bold uppercase tracking-tight group-hover:underline underline-offset-4 decoration-1">
+                    {project.entry.title}
+                  </h3>
+                  <span className="text-sm text-gray-500 capitalize font-mono">
+                    {project.entry.category}
+                  </span>
                 </div>
               </Link>
             ))}
           </div>
         ) : (
-          <div className="text-center py-20 bg-gray-50 rounded-lg border border-dashed border-gray-300">
-            <p className="text-gray-500 mb-4">
-              No projects have been published yet.
-            </p>
-            <Link
-              href="/keystatic"
-              className="inline-block bg-black text-white px-6 py-2 rounded-md hover:bg-gray-800 transition"
-            >
-              Open CMS to Add Projects
-            </Link>
+          <div className="text-center py-20 border border-dashed border-white/20 rounded-lg">
+            <p className="text-gray-500 mb-4">No projects found.</p>
           </div>
         )}
       </section>
+
+      <HomeTestimonials items={displayTestimonials} />
     </div>
   );
 }

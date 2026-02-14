@@ -5,18 +5,21 @@ import { config, fields, collection, singleton } from "@keystatic/core";
 const isProduction = process.env.NODE_ENV === "production";
 const repo = process.env.NEXT_PUBLIC_GITHUB_REPO as `${string}/${string}`;
 
-const storageStrategy =
-  isProduction && repo
-    ? {
-        kind: "github" as const,
-        repo,
-        token: process.env.GITHUB_TOKEN,
-      }
-    : { kind: "local" as const };
+// Force local mode for robustness during development/build without valid tokens
+const storageStrategy = { kind: "local" as const };
+// const storageStrategy =
+//   isProduction && repo && process.env.GITHUB_TOKEN
+//     ? {
+//         kind: "github" as const,
+//         repo,
+//         token: process.env.GITHUB_TOKEN,
+//       }
+//     : { kind: "local" as const };
 
 // 2. Asset Path Constants (The "Hardcoding" Fix)
 // storageStrategy determines if we are in GitHub mode (Repo Root context) or Local mode (CWD context)
-const isGitHubMode = storageStrategy.kind === "github";
+const isGitHubMode = false; // Forced to false because storageStrategy is hardcoded to local above
+// const isGitHubMode = storageStrategy.kind === "github";
 
 // In GitHub mode, we are at Repo Root, so we need to go into 'permitasapp/public/images'
 // In Local mode, we are likely running 'npm run dev' inside 'permitasapp', so 'public/images' is correct.
@@ -161,13 +164,63 @@ export default config({
       label: "Home Page",
       path: `${CONTENT_PREFIX}content/pages/home`,
       schema: {
+        // --- Hero Section ---
         heroHeadline: fields.text({ label: "Hero Title" }),
         heroSubhead: fields.text({ label: "Sub-headline" }),
+        heroVideoFile: fields.file({
+          label: "Hero Video File (Upload)",
+          description:
+            "Upload a small .mp4 file (Max 10MB recommended). Prioritized over the URL below.",
+          directory: `${ASSET_BASE_PATH}/videos`,
+          publicPath: `${ASSET_PUBLIC_PATH}/videos/`,
+          validation: { isRequired: false },
+        }),
+        heroVideoUrl: fields.text({
+          label: "Hero Background Video URL",
+          description:
+            "Direct link to .mp4 file (e.g. Vimeo direct link, AWS S3, Pexels). Overrides image if present.",
+        }),
         heroImage: fields.image({
-          label: "Hero Background",
+          label: "Hero Fallback Image",
           directory: `${ASSET_BASE_PATH}/pages`,
           publicPath: `${ASSET_PUBLIC_PATH}/pages/`,
         }),
+
+        // --- Mission Statement (Storyboard) ---
+        missionLine1: fields.text({ label: "Mission Line 1 (Precision)" }),
+        missionLine2: fields.text({ label: "Mission Line 2 (Trust)" }),
+        missionLine3: fields.text({ label: "Mission Line 3 (Approval)" }),
+        missionBody: fields.text({
+          label: "Mission Body Text",
+          multiline: true,
+        }),
+
+        // --- Services Section ---
+        services: fields.array(
+          fields.object({
+            title: fields.text({ label: "Service Title" }),
+            description: fields.text({ label: "Description", multiline: true }),
+            linkUrl: fields.text({ label: "Link URL" }),
+          }),
+          {
+            label: "Services List",
+            itemLabel: (props) => props.fields.title.value || "Service Item",
+          },
+        ),
+
+        // --- Process Section ---
+        processSteps: fields.array(
+          fields.object({
+            title: fields.text({ label: "Step Title" }),
+            description: fields.text({ label: "Description", multiline: true }),
+          }),
+          {
+            label: "Process Flow Steps",
+            itemLabel: (props) => props.fields.title.value || "Process Step",
+          },
+        ),
+
+        // --- Selected Works ---
         featuredProjects: fields.array(
           fields.relationship({
             label: "Project",
@@ -176,6 +229,18 @@ export default config({
           {
             label: "Featured Work",
             itemLabel: (props) => props.value || "Select Project",
+          },
+        ),
+
+        // --- Testimonials Section ---
+        testimonialSelection: fields.array(
+          fields.relationship({
+            label: "Testimonial",
+            collection: "testimonials",
+          }),
+          {
+            label: "Testimonials to Display",
+            itemLabel: (props) => props.value || "Select Testimonial",
           },
         ),
       },
@@ -202,6 +267,23 @@ export default config({
           label: "Terms & Conditions",
           formatting: true,
         }),
+      },
+    }),
+    aboutPage: singleton({
+      label: "About Page",
+      path: `${CONTENT_PREFIX}content/pages/about`,
+      schema: {
+        stats: fields.array(
+          fields.object({
+            value: fields.text({ label: "Value (e.g. 100+)" }),
+            label: fields.text({ label: "Label (e.g. Projects)" }),
+          }),
+          {
+            label: "Stats Bar",
+            itemLabel: (props) =>
+              `${props.fields.value.value} - ${props.fields.label.value}`,
+          },
+        ),
       },
     }),
   },

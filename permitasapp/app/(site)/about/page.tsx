@@ -1,5 +1,6 @@
 import { reader } from "@/app/lib/keystatic";
 import TeamFeed from "@/components/team/TeamFeed";
+import StatsBar from "@/components/about/StatsBar";
 import { Metadata } from "next";
 import { notFound } from "next/navigation"; // Added for safety
 
@@ -14,6 +15,9 @@ export const metadata: Metadata = {
 export default async function AboutPage() {
   // 1. Fetch team members
   const teamMembers = await reader.collections.team.all();
+
+  // 2. Fetch About Page Data (Stats)
+  const aboutPageData = await reader.singletons.aboutPage.read();
 
   // Safety check
   if (!teamMembers) return notFound();
@@ -32,7 +36,12 @@ export default async function AboutPage() {
             rigorous technical detail with artistic intuition.
           </p>
         </section>
+      </div>
 
+      {/* Stats Bar (Option C) */}
+      {aboutPageData?.stats && <StatsBar stats={aboutPageData.stats} />}
+
+      <div className="container mx-auto px-6 md:px-12 mt-24">
         {/* Team Section Header */}
         <div className="flex items-end justify-between border-b border-black pb-4 mb-12">
           <h2 className="text-sm font-bold uppercase tracking-widest text-gray-500">
