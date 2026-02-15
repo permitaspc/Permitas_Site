@@ -2,7 +2,7 @@
 
 **Project:** Permitas (Architect Portfolio & Lead Gen Platform)
 **Version:** 0.1.0-alpha
-**Last Updated:** February 8, 2026
+**Last Updated:** February 15, 2026
 
 ## 1. Infrastructure & Environment (Phase 1.1)
 
@@ -134,3 +134,23 @@ Unified the footer experience across the entire application to match the high-fi
 - **CMS Strategy:** Keystatic runs in `local` mode during dev, `github` mode in production.
 - **Deployment:** Vercel (connected to GitHub).
 - **Environment Variables:** Critical for CMS operation (`NEXT_PUBLIC_GITHUB_REPO`, `GITHUB_TOKEN`, etc.).
+
+## 8. Advanced Content & UX Polishing (Phase 1.8)
+
+**Date:** February 14, 2026
+
+Executed a series of high-impact updates to the frontend and CMS architecture to support complex storytelling and premium user interactions.
+
+- **Homepage Evolution:**
+  - Implemented "Storyboard" animation for the Mission Statement using `framer-motion` scroll-linked arrays.
+  - Expanded `homePage` singleton schema to include `heroVideo`, `services` (repeatable), `processSteps`, and `testimonialSelection`.
+- **Loading Screen Implementation:**
+  - Deployed a global loading overlay with a premium "Curtain Lift" exit animation.
+  - Integrated `sessionStorage` logic to ensure the loader appears only once per user session, respecting UX best practices.
+  - Visuals: Large, translucent, blurred-to-sharp typographic reveal of "PERMITAS".
+- **Team Page Refinements:**
+  - Solved bio text overflow issues by implementing a visual clamp (`line-clamp`) effectively handling long content without breaking the grid layout.
+- **CMS Architecture:**
+  - Added robust schema definitions for `Services`, `Process`, and `Testimonials` to allow full client control over landing page content.
+
+**Verdict:** The application now supports rich, dynamic content management and features professional-grade animations that elevate the brand perception.

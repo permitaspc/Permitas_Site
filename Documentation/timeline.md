@@ -1,15 +1,16 @@
 # Project Timeline: Architect Portfolio & Lead Gen Platform
 
-**Project Manager:** Expert SDE System
+**Project Manager:** Antigravity (Google DeepMind)
 **Total Duration:** 4 Weeks (Sprint-based)
 **Methodology:** Agile / Critical Path
 **Tech Stack:** Next.js 15, Keystatic, Tailwind v4, Vercel
+**Last Updated:** February 15, 2026
 
 ---
 
-## 📅 Phase 1: Infrastructure & The "Iron Skeleton"
+## 📅 Phase 1: Infrastructure & The "Iron Skeleton" (COMPLETED)
 
-**Week 1 (Days 1-7)**
+**Week 1 (Jan 22 - Jan 28)**
 **Goal:** A deployed, live URL with a working CMS. Data persists to GitHub.
 
 | Day     | Task ID | Status      | Description                   | Technical Specifics                                                                                                         |
@@ -18,43 +19,58 @@
 | **Tue** | **1.2** | **✅ Done** | **CMS Core Setup**            | Install `@keystatic/core` & `@keystatic/next`. Configure `keystatic.config.ts` with schemas: `Projects`, `Team`, `Pages`.   |
 | **Wed** | **1.3** | **✅ Done** | **DevOps & Authentication**   | Connect Repo to Vercel. **CRITICAL:** Configure GitHub App credentials in Vercel Env Vars to enable "Git Mode" for the CMS. |
 | **Thu** | **1.4** | **✅ Done** | **Type Generation**           | Run `keystatic generate-types`. Create `lib/keystatic.ts` reader functions to ensure strict typing for frontend components. |
-| **Fri** | **1.5** | **✅ Done** | **Routing Architecture**      | scaffold filesystem: `/app/projects`, `/app/about`, `/app/contact`. Implement shared `Header` and `Footer` components.      |
+| **Fri** | **1.5** | **✅ Done** | **Routing Architecture**      | Scaffold filesystem: `/app/projects`, `/app/about`, `/app/contact`. Implement shared `Header` and `Footer` components.      |
 | **Sat** | **1.6** | **✅ Done** | **Smoke Test / Refactor**     | Verify `/keystatic` admin panel works. Audit hardcoded values. Enable `next/image`.                                         |
+| **Mon** | **1.7** | **✅ Done** | **Global Footer**             | Refactor Footer to be global (in `layout.tsx`) and connected to CMS Settings singleton.                                     |
 
-**✅ Deliverable:** Live Vercel URL where the Admin Panel functions.
+**✅ Deliverable:** Live Vercel URL where the Admin Panel functions and data persists.
 
 ---
 
-## 📅 Phase 2: Core Engine & Content Injection
+## 📅 Phase 2: Core Engine & Content Injection (COMPLETED)
 
-**Week 2 (Days 8-14)**
+**Week 2 (Jan 29 - Feb 4)**
 **Goal:** All functional pages are built, styled to "Luxury" standard, and mobile-ready.
 
 | Day     | Task ID | Status         | Description               | Technical Specifics                                                                                                   |
 | :------ | :------ | :------------- | :------------------------ | :-------------------------------------------------------------------------------------------------------------------- |
 | **Mon** | **2.1** | **✅ Done**    | **Data Fetching Logic**   | Write Async Server Components to fetch and display raw JSON data for the Home Grid and Project Detail pages.          |
 | **Tue** | **2.2** | **✅ Done**    | **Image Pipeline**        | Implement `next/image` with strict quality settings. **Constraint:** Enforce `sizes` prop to prevent mobile overload. |
-| **Wed** | **2.3** | **⏳ Pending** | **Client Onboarding**     | **MILESTONE:** Send CMS Link + "Image Guide" (PDF) to Cousin. She starts uploading projects _now_.                    |
-| **Thu** | **2.4** | **⏳ Pending** | **True Masonry Layout**   | Replace CSS Grid with `react-masonry-css` or column-count. Handle aspect ratio shifts gracefully.                     |
+| **Wed** | **2.3** | **✅ Done**    | **CMS Readiness**         | Technical infrastructure for client onboarding is ready. CMS is fully operational.                                    |
+| **Thu** | **2.4** | **✅ Done**    | **Project Feed MVP**      | Implemented Vertical Scroll Feed with Parallax effects (replaced initial Masonry idea for cleaner mobile UX).         |
 | **Fri** | **2.5** | **⏳ Pending** | **Detail View Polish**    | Style `DocumentRenderer` (Typography, Spacing). Implement "Next/Previous Project" navigation.                         |
 | **Sat** | **2.6** | **⏳ Pending** | **Mobile Navigation**     | Build `MobileMenu` component (Hamburger + Drawer). Ensure touch targets are >44px.                                    |
-| **Sun** | **2.7** | **⏳ Pending** | **Architecture Refactor** | Create `app/lib/data.ts` to abstract `reader` calls. Fix hardcoded values in Header/Footer/Lib.                       |
+| **Sun** | **2.7** | **✅ Done**    | **Architecture Refactor** | Create `app/lib/data.ts` to abstract `reader` calls. Fix hardcoded values in Header/Footer/Lib.                       |
 
 **✅ Deliverable:** A fully navigable, responsive website with "Production-Ready" code structure.
 
 ---
 
-## 📅 Phase 3: The "Architect" Polish & Integrations
+## 📅 Phase 2.5: Advanced Content & UX Polish (COMPLETED)
 
-**Week 3 (Days 15-21)**
+**Week 3 (Feb 10 - Feb 14)**
+**Goal:** High-impact UX features and complex content modeling.
+
+| Task ID  | Status      | Description             | Technical Specifics                                                                             |
+| :------- | :---------- | :---------------------- | :---------------------------------------------------------------------------------------------- |
+| **2.8**  | **✅ Done** | **Homepage Storyboard** | Implemented scroll-linked text reveal for Mission Statement using `framer-motion`.              |
+| **2.9**  | **✅ Done** | **Loading Screen**      | Created global "Curtain Lift" loader with `sessionStorage` persistence (runs once per session). |
+| **2.10** | **✅ Done** | **Team Page Fixes**     | Implemented visual line-clamping and read-more logic for bio text to fix grid overflow.         |
+| **2.11** | **✅ Done** | **CMS Expansion**       | Added schemas for Services, Process, Testimonials, and Homepage Hero Video.                     |
+
+---
+
+## 📅 Phase 3: The "Architect" Polish & Integrations (IN PROGRESS)
+
+**Week 4 (Feb 15 - Feb 21)**
 **Goal:** "Luxury" feel, Animations, and Lead Gen tools.
 
 | Day     | Task ID | Status         | Description              | Technical Specifics                                                                                                          |
 | :------ | :------ | :------------- | :----------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
-| **Mon** | **3.1** | **⏳ Pending** | **Typography & Design**  | Implement **Geist Sans**. Configure Tailwind `@theme` for consistent H1/H2 scales. Apply global padding/margins.             |
-| **Tue** | **3.2** | **⏳ Pending** | **Luxury Scroll Engine** | Install **Lenis**. Wrap `layout.tsx` in a Smooth Scroll provider. Tune friction/easing to match "Premium" feel.              |
+| **Mon** | **3.1** | **✅ Done**    | **Typography & Design**  | Implement **Geist Sans**. Configure Tailwind `@theme`. Applied global styles.                                                |
+| **Tue** | **3.2** | **✅ Done**    | **Luxury Scroll Engine** | Install **Lenis**. Wrapped `layout.tsx` in a Smooth Scroll provider.                                                         |
 | **Wed** | **3.3** | **⏳ Pending** | **Lead Gen Engines**     | Integrate **Web3Forms** (Contact Page) & **Cal.com** (Booking Embed). **Test:** Send a real email and book a real slot.      |
-| **Thu** | **3.4** | **⏳ Pending** | **Micro-Animations**     | Add **Framer Motion**. Implement Staggered Entry for grid items and Fade-ins for images. Keep it subtle (0.4s duration).     |
+| **Thu** | **3.4** | **🔄 In Prog** | **Micro-Animations**     | Add **Framer Motion**. Implement Staggered Entry for grid items and Fade-ins for images. (Mission/Loader done).              |
 | **Fri** | **3.5** | **⏳ Pending** | **Compliance Layer**     | Implement **Cookie Consent Banner** (`vanilla-cookieconsent`). Add Footer Links: ARB Status (if applicable), Privacy Policy. |
 | **Sat** | **3.6** | **⏳ Pending** | **Performance Audit**    | Run Lighthouse. Fix CLS (Layout Shift) and Accessibility (Alt Text) errors.                                                  |
 
@@ -62,9 +78,9 @@
 
 ---
 
-## 📅 Phase 4: Launch, SEO & Handover
+## 📅 Phase 4: Launch, SEO & Handover (PLANNED)
 
-**Week 4 (Days 22-28)**
+**Week 5 (Feb 22 - Feb 28)**
 **Goal:** Go Live, Index on Google, Transfer Ownership.
 
 | Day     | Task ID | Status         | Description           | Technical Specifics                                                                                             |
@@ -77,14 +93,3 @@
 | **Sat** | **4.6** | **⏳ Pending** | **Post-Launch check** | Verify Forms, Booking, and Mobile view on the live `.com` domain.                                               |
 
 **✅ Deliverable:** Project Closure.
-
----
-
-## ⚠️ Risk Management & Constraints
-
-| Risk Area         | Probability | Mitigation Strategy                                                                                                                        |
-| :---------------- | :---------- | :----------------------------------------------------------------------------------------------------------------------------------------- |
-| **Content Delay** | High        | Cousin fails to write text. **Mitigation:** Build with "Lorem Ipsum" and launch. Do not wait.                                              |
-| **Image Bloat**   | High        | Cousin uploads 20MB PNGs. **Mitigation:** Hard constraint in "Owner's Manual" and strict `<Image>` component optimization.                 |
-| **Legal (ARB)**   | Medium      | Cousin uses "Architect" title illegally. **Mitigation:** Hard-code fallback titles ("Spatial Designer") in CMS if registration is pending. |
-| **Vercel Limits** | Low         | Hitting Hobby Tier bandwidth. **Mitigation:** Cache-Control headers set to `public, max-age=31536000, immutable` for assets.               |
