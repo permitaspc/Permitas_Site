@@ -46,6 +46,7 @@ export default async function RootLayout({
           {/* 3. Pass CMS data to Header */}
           <Header
             siteTitle={settings?.siteTitle || undefined}
+            logo={settings?.logo || undefined}
             navItems={settings?.navigation || undefined}
           />
 
@@ -62,7 +63,7 @@ export default async function RootLayout({
             siteTitle={settings?.siteTitle || undefined}
           />
         </SmoothScroll>
-        <LoadingScreen />
+        <LoadingScreen logo={settings?.logo || undefined} />
       </body>
     </html>
   );
