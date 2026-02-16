@@ -3,7 +3,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
-export default function LoadingScreen() {
+import Image from "next/image";
+
+export default function LoadingScreen({ logo }: { logo?: string | null }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -42,16 +44,11 @@ export default function LoadingScreen() {
           <div className="relative w-full h-full flex items-center justify-center">
             {/* 
               New Implementation: 
-              Subtle, Premium, Translucent Typography 
+              Subtle, Premium, Translucent Typography or Logo
               Inspired by mino.works
             */}
-            <motion.h1
-              className="text-white font-bold tracking-tighter uppercase select-none relative z-10 mix-blend-difference"
-              style={{
-                fontFamily: "var(--font-geist-sans), sans-serif",
-                fontSize: "clamp(3rem, 15vw, 12rem)", // Responsive giant text
-                opacity: 0.9, // Slight translucency
-              }}
+            <motion.div
+              className="relative z-10 mix-blend-difference"
               initial={{
                 scale: 0.9,
                 opacity: 0,
@@ -69,8 +66,29 @@ export default function LoadingScreen() {
                 ease: [0.22, 1, 0.36, 1], // Custom easeOut
               }}
             >
-              PERMITAS
-            </motion.h1>
+              {logo ? (
+                <div className="relative w-[75vw] h-[75vh]">
+                  <Image
+                    src={logo}
+                    alt="Loading..."
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+              ) : (
+                <h1
+                  className="text-white font-bold tracking-tighter uppercase select-none"
+                  style={{
+                    fontFamily: "var(--font-geist-sans), sans-serif",
+                    fontSize: "clamp(3rem, 15vw, 12rem)", // Responsive giant text
+                    opacity: 0.9,
+                  }}
+                >
+                  PERMITAS
+                </h1>
+              )}
+            </motion.div>
           </div>
         </motion.div>
       )}
