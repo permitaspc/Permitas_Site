@@ -1,12 +1,15 @@
 // components/global/Header.tsx
 import Link from "next/link";
 
+import Image from "next/image";
+
 interface HeaderProps {
   siteTitle?: string;
+  logo?: string | null;
   navItems?: readonly { readonly label: string; readonly link: string }[];
 }
 
-export default function Header({ siteTitle, navItems }: HeaderProps) {
+export default function Header({ siteTitle, logo, navItems }: HeaderProps) {
   const title = siteTitle || "Permitas";
   const menu = navItems?.length
     ? navItems
@@ -21,11 +24,22 @@ export default function Header({ siteTitle, navItems }: HeaderProps) {
     <header className="fixed top-0 left-0 w-full z-50 py-8 mix-blend-difference text-white">
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
         {/* Brand / Logo */}
-        <Link
-          href="/"
-          className="text-2xl md:text-3xl font-bold tracking-tight uppercase"
-        >
-          {title}
+        <Link href="/" className="relative z-50">
+          {logo ? (
+            <div className="relative w-40 h-10 md:w-56 md:h-14">
+              <Image
+                src={logo}
+                alt={title}
+                fill
+                className="object-contain object-left"
+                priority
+              />
+            </div>
+          ) : (
+            <span className="text-2xl md:text-3xl font-bold tracking-tight uppercase">
+              {title}
+            </span>
+          )}
         </Link>
 
         {/* Navigation */}
