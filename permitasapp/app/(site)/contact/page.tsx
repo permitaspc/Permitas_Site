@@ -1,5 +1,7 @@
 import { reader } from "@/app/lib/keystatic";
 import { Metadata } from "next";
+import ContactForm from "@/components/contact/ContactForm";
+import BookingWidget from "@/components/contact/BookingWidget";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -12,73 +14,63 @@ export default async function ContactPage() {
   const settings = await reader.singletons.settings.read();
 
   return (
-    <div className="container mx-auto px-4 pt-20 pb-0">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-        {/* Left Column: Context & Info */}
-        <div>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-8">
-            {contactData?.heading || "Get in Touch"}
-          </h1>
+    <div className="container mx-auto px-6 md:px-12 pt-32 pb-12 min-h-screen flex flex-col justify-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+        {/* Left Column: Context & Form (Mino Style) */}
+        <div className="flex flex-col">
+          <div className="mb-8">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 text-black">
+              {contactData?.heading || "Get in Touch"}
+            </h1>
 
-          <p className="text-xl text-gray-800 mb-12 leading-relaxed max-w-md">
-            {contactData?.subtext ||
-              "We are currently accepting new projects. Tell us about your vision."}
-          </p>
+            <p className="text-lg md:text-xl text-gray-500 leading-relaxed max-w-lg">
+              {contactData?.subtext ||
+                "Got questions, compliments, or just wanna say hi? Don't be shy. Let's make some magic happen."}
+            </p>
+          </div>
 
-          <div className="space-y-8">
-            {/* Email Block */}
-            <div>
-              <h3 className="text-sm font-bold uppercase tracking-widest text-gray-500 mb-2">
-                Email
-              </h3>
-              {settings?.contactEmail ? (
+          <ContactForm />
+
+          {/* Direct Contact Details (Email/Phone) */}
+          <div className="mt-10 space-y-6">
+            {settings?.contactEmail && (
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">
+                  Email
+                </h3>
                 <a
                   href={`mailto:${settings.contactEmail}`}
-                  className="text-2xl font-medium hover:underline"
+                  className="text-lg font-medium hover:underline decoration-1 underline-offset-4"
                 >
                   {settings.contactEmail}
                 </a>
-              ) : (
-                <span className="text-gray-400">Email not set in settings</span>
-              )}
-            </div>
+              </div>
+            )}
 
-            {/* Phone Block */}
             {settings?.contactPhone && (
               <div>
-                <h3 className="text-sm font-bold uppercase tracking-widest text-gray-500 mb-2">
+                <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">
                   Phone
                 </h3>
-                <p className="text-2xl font-medium">{settings.contactPhone}</p>
+                <p className="text-lg font-medium">{settings.contactPhone}</p>
               </div>
             )}
           </div>
         </div>
 
-        {/* Right Column: Form / Booking Area */}
-        <div className="bg-gray-50 p-10 rounded-lg min-h-[400px] flex items-center justify-center border border-gray-100">
-          {/* Production Ready: Conditional Action Card */}
-          {contactData?.calendlyUrl ? (
-            <div className="text-center w-full">
-              <h3 className="text-2xl font-bold mb-4">Book a Consultation</h3>
-              <p className="text-gray-600 mb-8">
-                Schedule a 30-minute discovery call to discuss your project
-                requirements.
-              </p>
-              <a
-                href={contactData.calendlyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full bg-black text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl"
-              >
-                Schedule Now →
-              </a>
-            </div>
-          ) : (
-            <div className="text-center opacity-50">
-              <p>No booking link available.</p>
-            </div>
-          )}
+        {/* Right Column: Booking Widget */}
+        <div className="relative h-full w-full flex flex-col justify-start pt-4">
+          <div className="w-full aspect-[4/3] lg:aspect-auto lg:h-[600px]">
+            {contactData?.calendlyUrl ? (
+              <BookingWidget bookingUrl={contactData.calendlyUrl} />
+            ) : (
+              <div className="flex items-center justify-center h-full w-full bg-gray-50 rounded-2xl border border-dashed border-gray-200">
+                <p className="text-gray-400">
+                  Booking calendar not configured.
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

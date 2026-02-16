@@ -263,7 +263,7 @@ export default config({
       schema: {
         heading: fields.text({ label: "Page Heading" }),
         subtext: fields.text({ label: "Sub-text" }),
-        calendlyUrl: fields.text({ label: "Calendly Event URL" }),
+        calendlyUrl: fields.text({ label: "Booking URL (Cal.com/Calendly)" }),
         formSuccessMessage: fields.text({ label: "Success Message" }),
       },
     }),
