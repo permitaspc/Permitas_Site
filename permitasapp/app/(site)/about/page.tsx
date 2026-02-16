@@ -51,18 +51,18 @@ export default async function AboutPage() {
             ({teamMembers.length})
           </span>
         </div>
-      </div>
 
-      {/* Team Feed - Full Width but padded inside component */}
-      <section className="w-full">
-        {teamMembers.length > 0 ? (
-          <TeamFeed team={teamMembers} />
-        ) : (
-          <div className="container mx-auto px-6 md:px-12 py-10 text-gray-500">
-            <p>No team members listed yet.</p>
-          </div>
-        )}
-      </section>
+        {/* Team Feed - Aligned with container */}
+        <div className="w-full">
+          {teamMembers.length > 0 ? (
+            <TeamFeed team={teamMembers} />
+          ) : (
+            <div className="py-10 text-gray-500">
+              <p>No team members listed yet.</p>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

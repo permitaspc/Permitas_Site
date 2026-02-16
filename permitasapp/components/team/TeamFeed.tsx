@@ -32,7 +32,7 @@ export default function TeamFeed({ team }: { team: TeamMember[] }) {
        */}
       <div
         ref={containerRef}
-        className="w-full overflow-x-auto flex gap-6 md:gap-12 px-6 md:px-12 pb-12 snap-x snap-mandatory scroll-smooth hide-scrollbar"
+        className="w-full overflow-x-auto flex gap-6 md:gap-12 pb-12 snap-x snap-mandatory scroll-smooth hide-scrollbar"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {team.map((member, index) => (
