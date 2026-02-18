@@ -68,9 +68,9 @@
 | Day     | Task ID | Status         | Description              | Technical Specifics                                                                                                          |
 | :------ | :------ | :------------- | :----------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
 | **Mon** | **3.1** | **✅ Done**    | **Typography & Design**  | Implement **Geist Sans**. Configure Tailwind `@theme`. Applied global styles.                                                |
-| **Tue** | **3.2** | **✅ Done**    | **Luxury Scroll Engine** | Install **Lenis**. Wrapped `layout.tsx` in a Smooth Scroll provider.                                                         |
-| **Wed** | **3.3** | **⏳ Pending** | **Lead Gen Engines**     | Integrate **Web3Forms** (Contact Page) & **Cal.com** (Booking Embed). **Test:** Send a real email and book a real slot.      |
-| **Thu** | **3.4** | **🔄 In Prog** | **Micro-Animations**     | Add **Framer Motion**. Implement Staggered Entry for grid items and Fade-ins for images. (Mission/Loader done).              |
+| **Tue** | **3.2** | **✅ Done**    | **Luxury Scroll Engine** | Install **Lenis** (Smooth Scroll). Hidden default scrollbar for seamless "App-like" feel.                                    |
+| **Wed** | **3.3** | **✅ Done**    | **Lead Gen Engines**     | Integrated **Web3Forms** (Contact) & **Cal.com** (Booking). **Refinement:** Seamless, borderless widget integration.         |
+| **Thu** | **3.4** | **✅ Done**    | **Brand Integration**    | **Logo Replacement:** Replaced text with CMS-managed Logo in Header & Loader. **Sizing:** Optimized for 20%+ larger impact.  |
 | **Fri** | **3.5** | **⏳ Pending** | **Compliance Layer**     | Implement **Cookie Consent Banner** (`vanilla-cookieconsent`). Add Footer Links: ARB Status (if applicable), Privacy Policy. |
 | **Sat** | **3.6** | **⏳ Pending** | **Performance Audit**    | Run Lighthouse. Fix CLS (Layout Shift) and Accessibility (Alt Text) errors.                                                  |
 

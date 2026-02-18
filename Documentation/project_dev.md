@@ -2,7 +2,7 @@
 
 **Project:** Permitas
 **Objective:** Build a high-performance Architect Portfolio & Lead Gen Platform.
-**Current Phase:** Phase 2 (Design System & High-Fidelity UI).
+**Current Phase:** Phase 3 (Integrations & Polish).
 
 ---
 
@@ -61,24 +61,28 @@
 - [x] **Team Page**: Bio overflow handling with "Read More" UX (Visual Clamp).
 - [x] **CMS Expansion**: Full schema for Services, Process, Testimonials, and Homepage Video.
 
----
+## 🚀 Phase 3: The "Architect" Polish & Integrations (CURRENT)
 
-## 🎨 Phase 2: Design System & High-Fidelity UI (CURRENT)
+**Goal:** "Luxury" feel, Brand Authority, and Lead Generation.
 
-**Goal:** Transform the "Iron Skeleton" into a premium, aesthetically stunning experience.
-**Reference:** `web_application_development` system prompt rules.
+### 3.1 Design System Refinements (Done)
 
-### 2.1 Design Foundation
+- [x] **Logo System**:
+  - Implemented CMS-driven Logo replacement for Header and Loading Screen.
+  - Sizing Strategy: 75% Viewport cover on Loader, +50% size increase on Header for brand dominance.
+- [x] **Scroll Architecture**:
+  - Implemented **Lenis** for smooth kinetic scrolling.
+  - **Global CSS**: Completely hidden default scrollbars (Webkit/Firefox) for a seamless "App-like" aesthetic.
 
-- [ ] **Typography & Color System**: Define in Tailwind config / CSS variables.
-- [x] **Animation Strategy**: Implemented `framer-motion` for Mission Statement and Loading Screen.
-- [x] **Component Polish**: Upgrade `Header`, `Footer`, `Button`, `Card` with premium styles. (Global Footer Implemented)
+### 3.2 Lead Generation features (Done)
 
-### 2.2 Feature Implementation
-
-- [x] **Home Page**: Hero animation, Featured Projects carousel (Schema Ready), Mission Statement (Done).
-- [ ] **Project Detail**: Rich text rendering for case studies, Image Gallery lightbox.
-- [ ] **Contact Form**: Validation and successful submission state.
+- [x] **Contact Form**:
+  - Custom `ContactForm` component using Web3Forms.
+  - "Mino-style" minimalist inputs with floating labels.
+- [x] **Appointment Scheduling**:
+  - Integrated `BookingWidget` (Cal.com / Cal.eu).
+  - **Refinement**: "Seamless" mode (removed borders/shadows/padding) to blend perfectly with the page background.
+  - **UX**: Enabled internal scrolling without visible scrollbars.
 
 ---
 
