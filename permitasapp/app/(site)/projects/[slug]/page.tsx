@@ -28,11 +28,8 @@ export default async function ProjectPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  console.log(
-    `[Debug] Rendering Project Page for slug: ${slug} at ${new Date().toISOString()}`,
-  );
+
   const project = await reader.collections.projects.read(slug);
-  // const settings = await reader.singletons.settings.read(); // Unused
 
   if (!project) notFound();
 
@@ -46,9 +43,8 @@ export default async function ProjectPage({
   const currentIndex = sorted.findIndex((p) => p.slug === slug);
   const nextProject = sorted[currentIndex + 1] || sorted[0];
 
-  console.log(
-    `[Debug] Next Project for ${slug}: ${nextProject?.slug} (Title: ${nextProject?.entry.title})`,
-  );
+  // Rest of component unchanged beyond this point...
+  // But since replace requires contiguous, I will do a smaller chunk replacement.
 
   return (
     <main className="bg-white min-h-screen w-full relative">

@@ -26,6 +26,12 @@ export default function ContactForm() {
     setIsSubmitting(true);
     setError("");
 
+    // Prod Monitoring Log
+    console.log("[ContactForm] Initiating submission...", {
+      name: formData.name,
+      email: formData.email,
+    });
+
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -43,12 +49,21 @@ export default function ContactForm() {
       const result = await response.json();
 
       if (result.success) {
+        // Prod Monitoring Log
+        console.log("[ContactForm] Submission successful:", result.message);
         setIsSuccess(true);
         setFormData({ name: "", email: "", phone: "", message: "" });
       } else {
+        // Prod Monitoring Log
+        console.error(
+          "[ContactForm] Submission failed by API:",
+          result.message,
+        );
         setError(result.message || "Something went wrong. Please try again.");
       }
-    } catch (err) {
+    } catch (error) {
+      // Prod Monitoring Log
+      console.error("[ContactForm] Network or fetch error:", error);
       setError("Failed to submit. Please check your connection.");
     } finally {
       setIsSubmitting(false);
