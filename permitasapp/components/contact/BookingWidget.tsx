@@ -1,25 +1,12 @@
 "use client";
 
-import Cal, { getCalApi } from "@calcom/embed-react";
-import { useEffect } from "react";
+import Cal from "@calcom/embed-react";
 
 interface BookingWidgetProps {
   bookingUrl: string; // e.g., "cal.eu/dinesh831" or "dinesh/30min"
 }
 
 export default function BookingWidget({ bookingUrl }: BookingWidgetProps) {
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({});
-      cal("ui", {
-        theme: "light",
-        styles: { branding: { brandColor: "#000000" } },
-        hideEventTypeDetails: false,
-        layout: "month_view",
-      });
-    })();
-  }, []);
-
   // Determine if it's a cal.eu link
   const isEu = bookingUrl.includes("cal.eu");
 
@@ -36,7 +23,12 @@ export default function BookingWidget({ bookingUrl }: BookingWidgetProps) {
         calLink={calLink}
         calOrigin={isEu ? "https://cal.eu" : "https://cal.com"}
         style={{ width: "100%", height: "100%", minHeight: "600px" }}
-        config={{ layout: "month_view" }}
+        config={{
+          layout: "month_view",
+          theme: "light",
+          styles: '{"branding":{"brandColor":"#000000"}}',
+          hideEventTypeDetails: "false",
+        }}
       />
     </div>
   );

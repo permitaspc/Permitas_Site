@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -30,7 +29,7 @@ export default function MobileMenu({
     };
   }, [isOpen]);
 
-  const menuVariants = {
+  const menuVariants: Variants = {
     closed: {
       opacity: 0,
       transition: {
@@ -47,12 +46,12 @@ export default function MobileMenu({
     },
   };
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     closed: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
     open: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     closed: { opacity: 0, y: 50 },
     open: {
       opacity: 1,
@@ -75,11 +74,21 @@ export default function MobileMenu({
           animate="open"
           exit="closed"
           variants={menuVariants}
-          className={`fixed inset-0 z-[60] flex flex-col justify-between p-4 sm:p-6 md:p-12 ${bgColor} ${textColor}`}
+          className={`fixed inset-0 z-[60] flex flex-col justify-between p-6 md:p-12 ${bgColor} ${textColor}`}
         >
           {/* Close Button Area (Positioned relative to viewport) */}
           <div className="flex justify-end">
-            {/* The Close Icon Logic is handled by the Header button z-index. */}
+            {/* The Close Icon Logic is handled by the Header button z-index, 
+                 but we provide a localized close area just in case or for visual balance if needed.
+                 For now, we rely on the Header's button which should toggle state. 
+                 However, to ensure "Full Screen Takeover" feels right, we often render 
+                 the close button INSIDE the menu if it covers the header.
+                 
+                 Strategy: The Header's toggle button will be visible ABOVE this menu via z-index 
+                 OR we render a specific Close button here.
+                 Given the requirement for "=" -> "Solid Box", the Header controls the icon state. 
+                 We just provide the background.
+              */}
           </div>
 
           {/* Navigation Links */}
@@ -89,7 +98,7 @@ export default function MobileMenu({
               initial="closed"
               animate="open"
               exit="closed"
-              className="space-y-2 sm:space-y-4"
+              className="space-y-4"
             >
               {navItems.map((item) => (
                 <motion.li
@@ -100,7 +109,7 @@ export default function MobileMenu({
                   <Link
                     href={item.link}
                     onClick={onClose}
-                    className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter uppercase block hover:opacity-70 transition-opacity"
+                    className="text-5xl md:text-7xl font-bold tracking-tighter uppercase block hover:opacity-70 transition-opacity"
                   >
                     {item.label}
                   </Link>
@@ -113,7 +122,7 @@ export default function MobileMenu({
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { delay: 0.5 } }}
-            className={`flex flex-col gap-2 text-xs sm:text-sm uppercase tracking-widest ${secondaryMap}`}
+            className={`flex flex-col gap-2 text-sm uppercase tracking-widest ${secondaryMap}`}
           >
             <div className="flex gap-4">
               <Link href="/privacy" className="hover:underline">

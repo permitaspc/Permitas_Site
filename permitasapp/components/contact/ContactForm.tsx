@@ -26,6 +26,12 @@ export default function ContactForm() {
     setIsSubmitting(true);
     setError("");
 
+    // Prod Monitoring Log
+    console.log("[ContactForm] Initiating submission...", {
+      name: formData.name,
+      email: formData.email,
+    });
+
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -43,12 +49,21 @@ export default function ContactForm() {
       const result = await response.json();
 
       if (result.success) {
+        // Prod Monitoring Log
+        console.log("[ContactForm] Submission successful:", result.message);
         setIsSuccess(true);
         setFormData({ name: "", email: "", phone: "", message: "" });
       } else {
+        // Prod Monitoring Log
+        console.error(
+          "[ContactForm] Submission failed by API:",
+          result.message,
+        );
         setError(result.message || "Something went wrong. Please try again.");
       }
-    } catch (err) {
+    } catch (error) {
+      // Prod Monitoring Log
+      console.error("[ContactForm] Network or fetch error:", error);
       setError("Failed to submit. Please check your connection.");
     } finally {
       setIsSubmitting(false);
@@ -67,12 +82,12 @@ export default function ContactForm() {
             required
             value={formData.name}
             onChange={handleChange}
-            className="peer w-full bg-transparent border-b border-gray-300 py-3 text-base sm:text-lg md:text-xl outline-none transition-colors focus:border-black placeholder-transparent"
+            className="peer w-full bg-transparent border-b border-gray-300 py-3 text-lg md:text-xl outline-none transition-colors focus:border-black placeholder-transparent"
             placeholder="Your Name"
           />
           <label
             htmlFor="name"
-            className="absolute left-0 top-3 text-base sm:text-lg md:text-xl text-gray-400 transition-all duration-300 -translate-y-6 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-6 peer-focus:text-black peer-focus:text-xs"
+            className="absolute left-0 top-3 text-lg md:text-xl text-gray-400 transition-all duration-300 -translate-y-6 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-6 peer-focus:text-black peer-focus:text-xs"
           >
             Your Name
           </label>
@@ -87,12 +102,12 @@ export default function ContactForm() {
             required
             value={formData.email}
             onChange={handleChange}
-            className="peer w-full bg-transparent border-b border-gray-300 py-3 text-base sm:text-lg md:text-xl outline-none transition-colors focus:border-black placeholder-transparent"
+            className="peer w-full bg-transparent border-b border-gray-300 py-3 text-lg md:text-xl outline-none transition-colors focus:border-black placeholder-transparent"
             placeholder="Email Address"
           />
           <label
             htmlFor="email"
-            className="absolute left-0 top-3 text-base sm:text-lg md:text-xl text-gray-400 transition-all duration-300 -translate-y-6 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-6 peer-focus:text-black peer-focus:text-xs"
+            className="absolute left-0 top-3 text-lg md:text-xl text-gray-400 transition-all duration-300 -translate-y-6 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-6 peer-focus:text-black peer-focus:text-xs"
           >
             Email Address
           </label>
@@ -106,12 +121,12 @@ export default function ContactForm() {
             id="phone"
             value={formData.phone}
             onChange={handleChange}
-            className="peer w-full bg-transparent border-b border-gray-300 py-3 text-base sm:text-lg md:text-xl outline-none transition-colors focus:border-black placeholder-transparent"
+            className="peer w-full bg-transparent border-b border-gray-300 py-3 text-lg md:text-xl outline-none transition-colors focus:border-black placeholder-transparent"
             placeholder="Phone Number"
           />
           <label
             htmlFor="phone"
-            className="absolute left-0 top-3 text-base sm:text-lg md:text-xl text-gray-400 transition-all duration-300 -translate-y-6 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-6 peer-focus:text-black peer-focus:text-xs"
+            className="absolute left-0 top-3 text-lg md:text-xl text-gray-400 transition-all duration-300 -translate-y-6 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-6 peer-focus:text-black peer-focus:text-xs"
           >
             Phone Number (Optional)
           </label>
@@ -126,12 +141,12 @@ export default function ContactForm() {
             rows={3}
             value={formData.message}
             onChange={handleChange}
-            className="peer w-full bg-transparent border-b border-gray-300 py-3 text-base sm:text-lg md:text-xl outline-none resize-none transition-colors focus:border-black placeholder-transparent"
+            className="peer w-full bg-transparent border-b border-gray-300 py-3 text-lg md:text-xl outline-none resize-none transition-colors focus:border-black placeholder-transparent"
             placeholder="Tell us about your next project"
           />
           <label
             htmlFor="message"
-            className="absolute left-0 top-3 text-base sm:text-lg md:text-xl text-gray-400 transition-all duration-300 -translate-y-6 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-6 peer-focus:text-black peer-focus:text-xs"
+            className="absolute left-0 top-3 text-lg md:text-xl text-gray-400 transition-all duration-300 -translate-y-6 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-6 peer-focus:text-black peer-focus:text-xs"
           >
             Tell us about your next project
           </label>
