@@ -67,21 +67,26 @@ export default function MobileMenu({
   const secondaryMap = isDark ? "text-gray-400" : "text-gray-500";
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isOpen && (
         <motion.div
           initial="closed"
           animate="open"
           exit="closed"
-          variants={menuVariants}
-          className={`fixed inset-0 z-[60] flex flex-col justify-between p-6 md:p-12 ${bgColor} ${textColor}`}
+          variants={containerVariants}
+          // Dynamic Background Color based on theme
+          className={`fixed inset-0 z-[60] w-full min-h-screen overflow-hidden flex flex-col justify-between p-6 md:p-12 ${
+            theme === "dark"
+              ? "bg-[#0a0a0a] text-white pt-14 md:pt-[72px]"
+              : "bg-white text-black"
+          }`}
         >
           {/* Close Button Area (Positioned relative to viewport) */}
           <div className="flex justify-end">
-            {/* The Close Icon Logic is handled by the Header button z-index, 
+            {/* The Close Icon Logic is handled by the Header button z-index,
                  but we provide a localized close area just in case or for visual balance if needed.
-                 For now, we rely on the Header's button which should toggle state. 
-                 However, to ensure "Full Screen Takeover" feels right, we often render 
+                 For now, we rely on the Header's button which should toggle state.
+                 However, to ensure "Full Screen Takeover" feels right, we often render
                  the close button INSIDE the menu if it covers the header.
                  
                  Strategy: The Header's toggle button will be visible ABOVE this menu via z-index 
