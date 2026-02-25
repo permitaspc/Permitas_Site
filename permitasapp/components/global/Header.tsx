@@ -40,7 +40,11 @@ export default function Header({ siteTitle, logo, navItems }: HeaderProps) {
 
   return (
     <>
-      <header className="fixed top-0 left-0 w-full z-[70] py-6 md:py-8 mix-blend-difference text-white">
+      <header
+        className={`fixed left-0 w-full z-[70] py-6 md:py-8 mix-blend-difference text-white transition-all duration-300 ${
+          isHome ? "top-8 md:top-10" : "top-0"
+        }`}
+      >
         <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
           {/* Brand / Logo */}
           <Link href="/" className="relative z-[70]">

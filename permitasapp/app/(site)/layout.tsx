@@ -8,6 +8,7 @@ import Header from "@/components/global/Header";
 import Footer from "@/components/global/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import LoadingScreen from "@/components/global/LoadingScreen";
+import AnnouncementBar from "@/components/global/AnnouncementBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +44,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <SmoothScroll>
+          <AnnouncementBar />
           {/* 3. Pass CMS data to Header */}
           <Header
             siteTitle={settings?.siteTitle || undefined}
