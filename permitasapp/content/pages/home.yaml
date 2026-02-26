@@ -7,5 +7,7 @@ heroImage: /images/pages/heroImage.jpg
 services: []
 processSteps: []
 featuredProjects: []
+testimonialHeading: We build TRUST.
+inlineTestimonials: []
 testimonialSelection:
   - null

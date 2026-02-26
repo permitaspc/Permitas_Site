@@ -65,24 +65,49 @@ export default async function Home() {
     console.log(`- Project: ${p.entry.title}, Image: ${p.entry.coverImage}`);
   });
 
-  // 3. Resolve Testimonials
+  // 3. Resolve Testimonials (Inline Priority over Collection)
   const allTestimonials = await reader.collections.testimonials.all();
   let displayTestimonials = [];
 
-  if (
+  if (homeData?.inlineTestimonials && homeData.inlineTestimonials.length > 0) {
+    // Map inline to expected component format
+    displayTestimonials = homeData.inlineTestimonials.map((t, idx) => ({
+      slug: `inline-${idx}`,
+      entry: {
+        client: t.author,
+        quote: t.quote,
+      },
+    }));
+  } else if (
     homeData?.testimonialSelection &&
     homeData.testimonialSelection.length > 0
   ) {
+    // Filter out potential [null] entries Keystatic returns when an empty array is saved
     const selectedSlugs = homeData.testimonialSelection.filter(
       (s): s is string => typeof s === "string",
     );
-    displayTestimonials = allTestimonials.filter((t) =>
-      selectedSlugs.includes(t.slug),
-    );
+
+    if (selectedSlugs.length > 0) {
+      displayTestimonials = allTestimonials.filter((t) =>
+        selectedSlugs.includes(t.slug),
+      );
+    } else {
+      displayTestimonials = allTestimonials;
+    }
   } else {
-    // Fallback: Recent 3
-    displayTestimonials = allTestimonials.slice(0, 3);
+    // Fallback: All
+    displayTestimonials = allTestimonials;
   }
+
+  // DEBUG LOGGING - Testimonials
+  console.log("------------------------------------------------");
+  console.log("DEBUG [Home]: Testimonials Section Setup");
+  console.log("DEBUG [Home]: Testimonials Count:", displayTestimonials.length);
+  console.log(
+    "DEBUG [Home]: Testimonial Heading:",
+    homeData?.testimonialHeading,
+  );
+  console.log("------------------------------------------------");
 
   return (
     // WRAPPER: Force Dark Theme for Homepage Only
@@ -163,7 +188,10 @@ export default async function Home() {
         )}
       </section>
 
-      <HomeTestimonials items={displayTestimonials} />
+      <HomeTestimonials
+        items={displayTestimonials}
+        heading={homeData?.testimonialHeading}
+      />
     </div>
   );
 }

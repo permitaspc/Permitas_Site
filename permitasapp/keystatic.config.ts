@@ -245,13 +245,32 @@ export default config({
         ),
 
         // --- Testimonials Section ---
+        testimonialHeading: fields.text({
+          label: "Testimonials Section Heading",
+          description:
+            "The large sticky text that appears next to the testimonials.",
+        }),
+        inlineTestimonials: fields.array(
+          fields.object({
+            author: fields.text({ label: "Name (Key)" }),
+            quote: fields.text({
+              label: "Testimonial Paragraph (Value)",
+              multiline: true,
+            }),
+          }),
+          {
+            label: "Inline Testimonials (Key-Value)",
+            itemLabel: (props) =>
+              props.fields.author.value || "New Testimonial",
+          },
+        ),
         testimonialSelection: fields.array(
           fields.relationship({
-            label: "Testimonial",
+            label: "Testimonial (From Collection)",
             collection: "testimonials",
           }),
           {
-            label: "Testimonials to Display",
+            label: "Testimonials to Display (Fallback)",
             itemLabel: (props) => props.value || "Select Testimonial",
           },
         ),
