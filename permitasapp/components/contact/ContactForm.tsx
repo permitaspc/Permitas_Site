@@ -33,22 +33,20 @@ export default function ContactForm() {
     });
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
           ...formData,
-          from_name: "Permitas Contact Form",
         }),
       });
 
       const result = await response.json();
 
-      if (result.success) {
+      if (response.ok && result.success) {
         // Prod Monitoring Log
         console.log("[ContactForm] Submission successful:", result.message);
         setIsSuccess(true);
@@ -57,7 +55,9 @@ export default function ContactForm() {
         // Prod Monitoring Log
         console.error(
           "[ContactForm] Submission failed by API:",
-          result.message,
+          result.message || "Unknown API Error",
+          "Status:",
+          response.status,
         );
         setError(result.message || "Something went wrong. Please try again.");
       }
