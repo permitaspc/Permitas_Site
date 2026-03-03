@@ -131,11 +131,11 @@ export default function ProcessFlow({ steps }: ProcessFlowProps) {
   return (
     <section className="bg-black text-white relative border-t border-white/10">
       {/* Title Header acts as an independent flow block ABOVE the sticky sections */}
-      <div className="container mx-auto px-6 md:px-12 pt-24 pb-12">
-        <h2 className="text-sm font-mono text-gray-400 tracking-widest uppercase mb-4">
+      <div className="container mx-auto px-6 md:px-12 pt-24 pb-8 md:pb-12 xl:pb-4">
+        <h2 className="text-sm font-mono text-gray-500 tracking-widest uppercase mb-6">
           (02) Process
         </h2>
-        <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter max-w-4xl">
+        <h3 className="text-5xl md:text-6xl lg:text-[5.5rem] font-bold tracking-tighter max-w-5xl leading-[1.05]">
           From concept to approval,
           <br />
           <span className="text-gray-500">we handle every step.</span>
@@ -171,12 +171,12 @@ export default function ProcessFlow({ steps }: ProcessFlowProps) {
         {/* RIGHT COLUMN (DESKTOP) + MOBILE STACK */}
         <div
           ref={stepsRef}
-          className="w-full md:w-2/3 lg:w-3/5 flex flex-col relative z-20"
+          className="w-full md:w-2/3 lg:w-3/5 flex flex-col relative z-20 pt-8 md:pt-0"
         >
           {displaySteps.map((step, i) => (
             <div
               key={i}
-              className="min-h-[70vh] md:h-screen flex flex-col justify-center max-w-xl mx-auto md:mx-0 w-full group py-12 md:py-0"
+              className="md:h-screen flex flex-col justify-center max-w-xl mx-auto md:mx-0 w-full group py-4 md:py-0"
             >
               {/* Mobile View: Vertical Stacking Block */}
               <motion.div
