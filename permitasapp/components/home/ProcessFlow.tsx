@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { useRef, useEffect } from "react";
 
 const defaultSteps = [
@@ -51,7 +51,7 @@ function ElevatorNumber({
   total,
 }: {
   index: number;
-  scrollYProgress: any;
+  scrollYProgress: MotionValue<number>;
   total: number;
 }) {
   const centerP = total > 1 ? index / (total - 1) : 0;
