@@ -84,6 +84,21 @@
   - **Refinement**: "Seamless" mode (removed borders/shadows/padding) to blend perfectly with the page background.
   - **UX**: Enabled internal scrolling without visible scrollbars.
 
+### 3.3 Advanced Homepage Animations (Done)
+
+- [x] **Scroll Architecture:** Implemented scroll-linked storyboard animations for the Mission Statement.
+- [x] **Component Refinement:** Enhanced Testimonials layout and Process Timeline animations for better engagement.
+
+### 3.4 Mobile Optimization & UI Standard (Done)
+
+- [x] **Mobile Outlet Fixes:** Resolved line-clamp overflow and layout grid scaling issues on mobile viewports.
+- [x] **Announcement Strip:** Deployed a global "Pre-Launch preview" message strip across all pages.
+
+### 3.5 API Standards & Testing (Done)
+
+- [x] **API Documentation:** Created official `API_Documentation.md` outlining Keystatic paths, Web3Forms, and Cal.com integration requirements.
+- [x] **Staging Polish:** Fixed linting/build errors (resolved production warnings), preparing for staging deployment.
+
 ---
 
 ## 💾 Technical Stack & AI Conventions
@@ -110,6 +125,7 @@
 - **Data Access Strategy:**
   - **ALWAYS** use `import { reader } from '@/app/lib/keystatic'`.
   - **NEVER** use `fs` module to read content files directly.
+  - **API Documentation**: Refer to `Documentation/API_Documentation.md` for external forms and webhook integrations.
   - **Example:**
     ```typescript
     const settings = await reader.singletons.settings.read();
