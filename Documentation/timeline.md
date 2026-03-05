@@ -71,8 +71,9 @@
 | **Tue** | **3.2** | **✅ Done**    | **Luxury Scroll Engine** | Install **Lenis** (Smooth Scroll). Hidden default scrollbar for seamless "App-like" feel.                                    |
 | **Wed** | **3.3** | **✅ Done**    | **Lead Gen Engines**     | Integrated **Web3Forms** (Contact) & **Cal.com** (Booking). **Refinement:** Seamless, borderless widget integration.         |
 | **Thu** | **3.4** | **✅ Done**    | **Brand Integration**    | **Logo Replacement:** Replaced text with CMS-managed Logo in Header & Loader. **Sizing:** Optimized for 20%+ larger impact.  |
-| **Fri** | **3.5** | **⏳ Pending** | **Compliance Layer**     | Implement **Cookie Consent Banner** (`vanilla-cookieconsent`). Add Footer Links: ARB Status (if applicable), Privacy Policy. |
-| **Sat** | **3.6** | **⏳ Pending** | **Performance Audit**    | Run Lighthouse. Fix CLS (Layout Shift) and Accessibility (Alt Text) errors.                                                  |
+| **Fri** | **3.5** | **✅ Done**    | **Homepage Features**    | Refined Scroll Animations (Mission Statement/Timeline). Added Global Announcement Bar (`Message Strip`).                     |
+| **Sat** | **3.6** | **✅ Done**    | **Mobile Optimization**  | Mobile outlet bug fixes. Fixed line clamping and overflow to ensure robust grid integrity.                                   |
+| **Sun** | **3.7** | **⏳ Pending** | **Compliance Layer**     | Implement **Cookie Consent Banner** (`vanilla-cookieconsent`). Add Footer Links: ARB Status (if applicable), Privacy Policy. |
 
 **✅ Deliverable:** Feature-complete "Release Candidate".
 
@@ -83,13 +84,13 @@
 **Week 5 (Feb 22 - Feb 28)**
 **Goal:** Go Live, Index on Google, Transfer Ownership.
 
-| Day     | Task ID | Status         | Description           | Technical Specifics                                                                                             |
-| :------ | :------ | :------------- | :-------------------- | :-------------------------------------------------------------------------------------------------------------- |
-| **Mon** | **4.1** | **⏳ Pending** | **Technical SEO**     | Implement `generateMetadata()` for dynamic Open Graph images (Social Previews). Add `sitemap.ts` & `robots.ts`. |
-| **Tue** | **4.2** | **⏳ Pending** | **Analytics Setup**   | Enable **Vercel Web Analytics** (Hobby Tier). Confirm data is flowing without violating GDPR (cookie settings). |
-| **Wed** | **4.3** | **⏳ Pending** | **Error Strategy**    | Polish the `not-found.tsx` (404) and `error.tsx` (500) pages. Ensure they are branded.                          |
-| **Thu** | **4.4** | **⏳ Pending** | **Domain Migration**  | Update DNS Records (A/CNAME) at Registrar. Switch Vercel to Production Domain. Provision SSL.                   |
-| **Fri** | **4.5** | **⏳ Pending** | **Final Handover**    | **MILESTONE:** Transfer Vercel/GitHub ownership (optional). Deliver "Owner's Manual" PDF.                       |
-| **Sat** | **4.6** | **⏳ Pending** | **Post-Launch check** | Verify Forms, Booking, and Mobile view on the live `.com` domain.                                               |
+| Day     | Task ID | Status         | Description          | Technical Specifics                                                                                             |
+| :------ | :------ | :------------- | :------------------- | :-------------------------------------------------------------------------------------------------------------- |
+| **Mon** | **4.1** | **⏳ Pending** | **Technical SEO**    | Implement `generateMetadata()` for dynamic Open Graph images (Social Previews). Add `sitemap.ts` & `robots.ts`. |
+| **Tue** | **4.2** | **⏳ Pending** | **Analytics Setup**  | Enable **Vercel Web Analytics** (Hobby Tier). Confirm data is flowing without violating GDPR (cookie settings). |
+| **Wed** | **4.3** | **⏳ Pending** | **Error Strategy**   | Polish the `not-found.tsx` (404) and `error.tsx` (500) pages. Ensure they are branded.                          |
+| **Thu** | **4.4** | **🔄 In Prog** | **Staging tests**    | Final CI/CD pipeline tests. Push Release Candidate (`5b42010`) to a distinct staging URL for final audit.       |
+| **Fri** | **4.5** | **⏳ Pending** | **Domain Migration** | Update DNS Records (A/CNAME) at Registrar. Switch Vercel to Production Domain. Provision SSL.                   |
+| **Sat** | **4.6** | **⏳ Pending** | **Final Handover**   | **MILESTONE:** Transfer Vercel/GitHub ownership (optional). Deliver "Owner's Manual" PDF.                       |
 
 **✅ Deliverable:** Project Closure.

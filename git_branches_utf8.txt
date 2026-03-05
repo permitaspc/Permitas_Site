@@ -1,0 +1,13 @@
+﻿  contact                  5b42010 safe to reset, wip for prod
+  dev                      0873829 safe to rest, made changes in homepage scroll animation
+* homepage                 73156c8 safe to reset, WIP on homepage
+  main                     5b42010 safe to reset, wip for prod
+  mobile                   fe38af4 safe to reset, made changes in mobile outlet, bug fixes and deleted log and testing files
+  remotes/origin/contact   5b42010 safe to reset, wip for prod
+  remotes/origin/dev       0873829 safe to rest, made changes in homepage scroll animation
+  remotes/origin/footer    1a76a1e Not safe to reset, WIP
+  remotes/origin/hardcoded f92e317 safe to reset, scaffolding done right
+  remotes/origin/homepage  0873829 safe to rest, made changes in homepage scroll animation
+  remotes/origin/main      bdce8ba Enhanced Homepage
+  remotes/origin/mobile    fe38af4 safe to reset, made changes in mobile outlet, bug fixes and deleted log and testing files
+  remotes/origin/studio    6a833b6 safe to reset, made changes in teams page
