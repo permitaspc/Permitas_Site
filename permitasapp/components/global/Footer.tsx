@@ -109,11 +109,13 @@ export default function Footer({
           <h1 className="text-[15vw] leading-[0.8] font-bold tracking-tighter text-center md:text-left select-none">
             {siteTitle || "PERMITAS"}
           </h1>
-          <div className="flex justify-between text-xs md:text-sm font-mono text-gray-500 mt-4 uppercase">
-            <span>
+          <div className="flex flex-col gap-3 md:flex-row md:justify-between text-[10px] sm:text-xs md:text-sm font-mono text-gray-500 mt-8 uppercase text-center md:text-left">
+            <span className="leading-relaxed">
               © {currentYear} {footerText || "Permitas. All Rights Reserved."}
             </span>
-            <span>Designed by Permitas</span>
+            <span className="leading-relaxed md:text-right">
+              Designed by Permitas
+            </span>
           </div>
         </div>
       </div>
