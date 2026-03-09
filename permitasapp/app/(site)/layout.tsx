@@ -60,7 +60,7 @@ export default async function RootLayout({
             contactEmail={settings?.contactEmail || undefined}
             contactPhone={settings?.contactPhone || undefined}
             socialInstagram={settings?.socialInstagram || undefined}
-            socialLinkedIn={settings?.socialLinkedIn || undefined}
+            socialFacebook={settings?.socialFacebook || undefined}
             footerText={settings?.footerText || undefined}
             siteTitle={settings?.siteTitle || undefined}
           />

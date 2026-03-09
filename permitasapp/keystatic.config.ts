@@ -156,7 +156,7 @@ export default config({
           publicPath: `${ASSET_PUBLIC_PATH}/brand/`,
         }),
         socialInstagram: fields.url({ label: "Instagram Link" }),
-        socialLinkedIn: fields.url({ label: "LinkedIn Link" }),
+        socialFacebook: fields.url({ label: "Facebook Link" }),
         contactEmail: fields.text({ label: "Official Email" }),
         contactPhone: fields.text({ label: "Phone Number" }),
         footerText: fields.text({ label: "Footer Copyright Text" }),
