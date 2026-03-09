@@ -6,7 +6,7 @@ interface FooterProps {
   contactEmail?: string;
   contactPhone?: string;
   socialInstagram?: string;
-  socialLinkedIn?: string;
+  socialFacebook?: string;
   footerText?: string;
   siteTitle?: string;
 }
@@ -15,12 +15,15 @@ export default function Footer({
   contactEmail,
   contactPhone,
   socialInstagram,
-  socialLinkedIn,
+  socialFacebook,
   footerText,
   siteTitle,
 }: FooterProps) {
   const currentYear = new Date().getFullYear();
-  console.log("[Debug] Rendering Global Footer");
+  console.log(
+    "[Debug] Rendering Global Footer, socialFacebook:",
+    socialFacebook,
+  );
 
   return (
     <footer className="relative z-50 bg-black text-white px-6 md:px-12 py-24 md:py-32">
@@ -90,13 +93,13 @@ export default function Footer({
                     Instagram ↗
                   </a>
                 )}
-                {socialLinkedIn && (
+                {socialFacebook && (
                   <a
-                    href={socialLinkedIn}
+                    href={socialFacebook}
                     target="_blank"
                     className="hover:text-gray-400"
                   >
-                    LinkedIn ↗
+                    Facebook ↗
                   </a>
                 )}
               </div>
