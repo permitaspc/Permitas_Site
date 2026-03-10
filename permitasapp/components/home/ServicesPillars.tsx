@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 // import Link from "next/link"; // Unused
 // import { ArrowUpRight } from "lucide-react"; // Unused
@@ -45,9 +45,36 @@ interface ServicesPillarsProps {
 
 export default function ServicesPillars({ services }: ServicesPillarsProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const displayServices =
     services && services.length > 0 ? services : defaultServices;
+
+  const handleMouseEnter = (index: number) => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    // Add intentional delay before expanding
+    hoverTimeoutRef.current = setTimeout(() => {
+      setHoveredIndex(index);
+    }, 400); 
+  };
+
+  const handleMouseLeave = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    setHoveredIndex(null);
+  };
+
+  // Clean up timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <section className="bg-neutral-950 text-white py-24 px-6 md:px-12 border-t border-white/10">
@@ -71,8 +98,8 @@ export default function ServicesPillars({ services }: ServicesPillarsProps) {
               <motion.div
                 key={index}
                 className="group border-t border-white/20 py-10 cursor-pointer relative overflow-hidden"
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
+                onMouseEnter={() => handleMouseEnter(index)}
+                onMouseLeave={handleMouseLeave}
                 initial={false}
               >
                 <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-6 z-10 relative">
@@ -101,19 +128,22 @@ export default function ServicesPillars({ services }: ServicesPillarsProps) {
                             <p className="text-gray-400 max-w-lg mb-4">
                               {service.description}
                             </p>
-                            <span className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest underline decoration-1 underline-offset-4">
-                              Learn More <span className="text-lg">↗</span>
-                            </span>
                           </motion.div>
                         )}
                       </AnimatePresence>
                     </div>
                     {/* Mobile View */}
-                    <div className="md:hidden">
+                    <motion.div 
+                      className="md:hidden"
+                      initial={{ opacity: 0, y: 15 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-10px" }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                    >
                       <p className="text-gray-400 max-w-lg mb-4 text-sm">
                         {service.description}
                       </p>
-                    </div>
+                    </motion.div>
                   </div>
                 </div>
 

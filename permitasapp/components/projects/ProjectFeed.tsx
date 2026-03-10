@@ -4,7 +4,8 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import CustomProjectCursor from "@/components/global/CustomProjectCursor";
 
 interface ProjectCardData {
   slug: string;
@@ -27,9 +28,11 @@ interface ProjectFeedProps {
 const ProjectCard = ({
   project,
   index,
+  onHoverChange,
 }: {
   project: ProjectCardData;
   index: number;
+  onHoverChange: (isHovered: boolean) => void;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -44,7 +47,12 @@ const ProjectCard = ({
   const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
 
   return (
-    <div ref={containerRef} className="w-full mb-1 last:mb-0">
+    <div 
+      ref={containerRef} 
+      className="w-full mb-1 last:mb-0"
+      onMouseEnter={() => onHoverChange(true)}
+      onMouseLeave={() => onHoverChange(false)}
+    >
       <Link
         href={`/projects/${project.slug}`}
         className="group block w-full relative"
@@ -118,10 +126,18 @@ const ProjectCard = ({
 
 // 2. MAIN FEED
 export default function ProjectFeed({ projects }: ProjectFeedProps) {
+  const [isCursorActive, setIsCursorActive] = useState(false);
+
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full relative">
+      <CustomProjectCursor isActive={isCursorActive} />
       {projects.map((project, index) => (
-        <ProjectCard key={project.slug} project={project} index={index} />
+        <ProjectCard 
+          key={project.slug} 
+          project={project} 
+          index={index} 
+          onHoverChange={setIsCursorActive}
+        />
       ))}
     </div>
   );
