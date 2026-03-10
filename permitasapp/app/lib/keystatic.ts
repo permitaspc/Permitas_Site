@@ -14,9 +14,15 @@ const cleanRepo = (process.env.NEXT_PUBLIC_GITHUB_REPO || "")
 // Fallback to avoid TS errors during build if env is missing
 const repo = (cleanRepo || "username/repo") as `${string}/${string}`;
 
+// Retrieve the Vercel deployment branch, if any
+const branch =
+  process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF ||
+  process.env.VERCEL_GIT_COMMIT_REF;
+
 export const reader = isProduction
   ? createGitHubReader(keystaticConfig, {
       repo: repo,
+      ref: branch || undefined,
       token: process.env.GITHUB_TOKEN,
     })
   : createReader(process.cwd(), keystaticConfig);

@@ -9,6 +9,7 @@ import MissionStatement from "@/components/home/MissionStatement";
 import ServicesPillars from "@/components/home/ServicesPillars";
 import ProcessFlow from "@/components/home/ProcessFlow";
 import HomeTestimonials from "@/components/home/HomeTestimonials";
+import FeaturedProjectsGrid from "@/components/home/FeaturedProjectsGrid";
 
 export const metadata: Metadata = {
   title: "Permitas | Planning & Design",
@@ -43,7 +44,7 @@ export default async function Home() {
   // 2. Resolve Featured Projects
   // If user selected projects in CMS, use them. Otherwise, fallback to latest 3.
   const allProjects = await reader.collections.projects.all();
-  let featuredProjects = [];
+  let rawFeaturedProjects = [];
 
   if (homeData?.featuredProjects && homeData.featuredProjects.length > 0) {
     // Filter all projects to find the selected ones, preserving order if possible or just filtering
@@ -51,16 +52,27 @@ export default async function Home() {
     const selectedSlugs = homeData.featuredProjects.filter(
       (s): s is string => typeof s === "string",
     );
-    featuredProjects = allProjects.filter((p) =>
+    rawFeaturedProjects = allProjects.filter((p) =>
       selectedSlugs.includes(p.slug),
     );
   } else {
     // Fallback: Recent 3
-    featuredProjects = allProjects.slice(0, 3);
+    rawFeaturedProjects = allProjects.slice(0, 3);
   }
 
+  // 2.1 Sanitize Data to prevent React Serialization Error (500 Error Fix)
+  const featuredProjects = rawFeaturedProjects.map((project) => ({
+    slug: project.slug,
+    entry: {
+      title: project.entry.title,
+      coverImage: project.entry.coverImage,
+      category: project.entry.category,
+      status: project.entry.status,
+    },
+  }));
+
   // DEBUG LOGGING - Projects
-  console.log("DEBUG [Home]: Featured Projects");
+  console.log("DEBUG [Home]: Featured Projects (Sanitized client-safe data)");
   featuredProjects.forEach((p) => {
     console.log(`- Project: ${p.entry.title}, Image: ${p.entry.coverImage}`);
   });
@@ -137,55 +149,7 @@ export default async function Home() {
           (04) Selected Works
         </h2>
 
-        {featuredProjects.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredProjects.map((project) => (
-              <Link
-                key={project.slug}
-                href={`/projects/${project.slug}`}
-                className="group block"
-              >
-                {/* Image Placeholder / Card */}
-                <div className="relative aspect-[4/3] bg-neutral-900 overflow-hidden mb-4 border border-white/10 group-hover:border-white/30 transition-colors">
-                  {/* If we had an image, it would go here. For now, a subtle gradient. */}
-                  {!project.entry.coverImage && (
-                    <div className="absolute inset-0 bg-gradient-to-tr from-neutral-800 to-neutral-900 group-hover:scale-105 transition-transform duration-700" />
-                  )}
-
-                  {/* Real Image if available */}
-                  {project.entry.coverImage && (
-                    <NextImage
-                      src={project.entry.coverImage}
-                      alt={project.entry.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                  )}
-
-                  <div className="absolute bottom-4 left-4 z-10">
-                    <span className="px-2 py-1 bg-white text-black text-xs font-bold uppercase tracking-widest">
-                      {project.entry.status}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Text */}
-                <div>
-                  <h3 className="text-xl font-bold uppercase tracking-tight group-hover:underline underline-offset-4 decoration-1">
-                    {project.entry.title}
-                  </h3>
-                  <span className="text-sm text-gray-500 capitalize font-mono">
-                    {project.entry.category}
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-20 border border-dashed border-white/20 rounded-lg">
-            <p className="text-gray-500 mb-4">No projects found.</p>
-          </div>
-        )}
+        <FeaturedProjectsGrid projects={featuredProjects} />
       </section>
 
       <HomeTestimonials
