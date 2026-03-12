@@ -9,6 +9,8 @@ interface FooterProps {
   socialFacebook?: string;
   footerText?: string;
   siteTitle?: string;
+  designedByText?: string;
+  designedByLink?: string;
 }
 
 export default function Footer({
@@ -18,12 +20,16 @@ export default function Footer({
   socialFacebook,
   footerText,
   siteTitle,
+  designedByText,
+  designedByLink,
 }: FooterProps) {
   const currentYear = new Date().getFullYear();
   console.log(
     "[Debug] Rendering Global Footer, socialFacebook:",
     socialFacebook,
   );
+  console.log("[Debug] Designed By Text:", designedByText);
+  console.log("[Debug] Designed By Link:", designedByLink);
 
   return (
     <footer className="relative z-50 bg-black text-white px-6 md:px-12 py-24 md:py-32">
@@ -116,7 +122,20 @@ export default function Footer({
             <span>
               © {currentYear} {footerText || "Permitas. All Rights Reserved."}
             </span>
-            <span>Designed by Permitas</span>
+            <span>
+              {designedByLink ? (
+                <a 
+                  href={designedByLink} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:text-white transition-colors"
+                >
+                  {designedByText || "Designed by Permitas"}
+                </a>
+              ) : (
+                designedByText || "Designed by Permitas"
+              )}
+            </span>
           </div>
         </div>
       </div>

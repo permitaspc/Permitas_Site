@@ -160,6 +160,14 @@ export default config({
         contactEmail: fields.text({ label: "Official Email" }),
         contactPhone: fields.text({ label: "Phone Number" }),
         footerText: fields.text({ label: "Footer Copyright Text" }),
+        designedByText: fields.text({ 
+          label: "Designed By (Text)", 
+          description: "e.g., 'Designed by Permitas'" 
+        }),
+        designedByLink: fields.url({ 
+          label: "Designed By (URL)",
+          description: "Optional link for the Designed By text."
+        }),
         navigation: fields.array(
           fields.object({
             label: fields.text({ label: "Label" }),

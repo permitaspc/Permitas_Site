@@ -63,6 +63,8 @@ export default async function RootLayout({
             socialFacebook={settings?.socialFacebook || undefined}
             footerText={settings?.footerText || undefined}
             siteTitle={settings?.siteTitle || undefined}
+            designedByText={settings?.designedByText || undefined}
+            designedByLink={settings?.designedByLink || undefined}
           />
         </SmoothScroll>
         <LoadingScreen logo={settings?.logo || undefined} />
