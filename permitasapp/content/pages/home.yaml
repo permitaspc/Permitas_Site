@@ -15,7 +15,12 @@ missionBody: >-
 
   We help clients avoid costly missteps and present proposals clearly,
   professionally and with purpose
-services: []
+services:
+  - title: Planning Applications
+    description: >-
+      Drawings, guidance and full application support for homeowners, landlords
+      and developers submitting proposals to local councils.
+    linkUrl: https://www.permitas.co.uk/contact
 processSteps: []
 featuredProjects: []
 testimonialHeading: More Than Just Business.
