@@ -18,9 +18,24 @@ missionBody: >-
 services:
   - title: Planning Applications
     description: >-
-      Drawings, guidance and full application support for homeowners, landlords
-      and developers submitting proposals to local councils.
+      Planning application drawings, planning advice and full council submission
+      support for extensions, loft conversions, home improvements and
+      development proposals across England.
     linkUrl: https://www.permitas.co.uk/contact
+  - title: Building Regulations Drawings
+    description: >-
+      Building regulations drawings and technical plans prepared to support
+      compliance, approvals and smoother project delivery after planning
+      permission or permitted development review
+  - title: Permitted Development
+    description: >-
+      Permitted development advice for homeowners and landlords who need clarity
+      on whether planning permission is required and what drawings or
+      certificates may still be needed
+  - title: 'Change of Use '
+    description: >-
+      Change of use planning support, drawings and application guidance for
+      residential, mixed-use and commercial property proposals. 
 processSteps: []
 featuredProjects: []
 testimonialHeading: More Than Just Business.
