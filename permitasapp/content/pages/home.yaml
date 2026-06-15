@@ -15,7 +15,8 @@ missionBody: >-
 
   We help clients avoid costly missteps and present proposals clearly,
   professionally and with purpose
-services: []
+services:
+  - title: Planning Applications
 processSteps: []
 featuredProjects: []
 testimonialHeading: More Than Just Business.
