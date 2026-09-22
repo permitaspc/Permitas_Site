@@ -145,10 +145,6 @@ export default async function Home() {
 
       {/* Selected Works - Re-styled for Dark Theme */}
       <section className="container mx-auto px-6 md:px-12 py-24 border-t border-white/10">
-        <h2 className="text-sm font-mono text-gray-400 tracking-widest uppercase mb-16 text-left">
-          (04) Selected Works
-        </h2>
-
         <FeaturedProjectsGrid projects={featuredProjects} />
       </section>
 

@@ -26,7 +26,6 @@ export default function Header({ siteTitle, logo, navItems }: HeaderProps) {
     ? navItems
     : [
         { label: "Work", link: "/projects" },
-        { label: "Studio", link: "/about" },
         { label: "Contact", link: "/contact" },
       ];
 
@@ -62,7 +61,7 @@ export default function Header({ siteTitle, logo, navItems }: HeaderProps) {
 
               {/* Desktop Navigation */}
               <nav className="hidden md:block">
-                <ul className="flex gap-8 md:gap-9 text-sm md:text-xs font-medium tracking-wide uppercase">
+                <ul className="flex gap-8 md:gap-9 text-xl font-medium tracking-wide uppercase">
                   {menu.map((item) => (
                     <li key={item.link}>
                       <Link

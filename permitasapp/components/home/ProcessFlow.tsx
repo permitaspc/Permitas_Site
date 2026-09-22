@@ -132,9 +132,6 @@ export default function ProcessFlow({ steps }: ProcessFlowProps) {
     <section className="bg-black text-white relative border-t border-white/10">
       {/* Title Header acts as an independent flow block ABOVE the sticky sections */}
       <div className="container mx-auto px-6 md:px-12 pt-24 pb-8 md:pb-12 xl:pb-4">
-        <h2 className="text-sm font-mono text-gray-500 tracking-widest uppercase mb-6">
-          (02) Process
-        </h2>
         <h3 className="text-5xl md:text-6xl lg:text-[5.5rem] font-bold tracking-tighter max-w-5xl leading-[1.05]">
           From concept to approval,
           <br />

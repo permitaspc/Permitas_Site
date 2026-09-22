@@ -92,7 +92,7 @@ export default function Hero({
               href="/contact"
               className="inline-block border border-white px-8 py-3 text-sm font-bold tracking-widest hover:bg-white hover:text-black transition-all duration-300 uppercase"
             >
-              Start Your Project
+              Free Consultation
             </a>
           </div>
         </motion.div>

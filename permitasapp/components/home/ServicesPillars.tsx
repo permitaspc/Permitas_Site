@@ -80,9 +80,6 @@ export default function ServicesPillars({ services }: ServicesPillarsProps) {
     <section className="bg-neutral-950 text-white py-24 px-6 md:px-12 border-t border-white/10">
       <div className="container mx-auto">
         <div className="mb-16">
-          <h2 className="text-sm font-mono text-gray-400 tracking-widest uppercase mb-4">
-            (01) Services
-          </h2>
           <h3 className="text-4xl md:text-5xl font-bold tracking-tighter">
             We handle the paperwork.
             <br />

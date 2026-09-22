@@ -40,13 +40,10 @@ export default async function ProjectsPage() {
         - Clean Typography based on image 29c942
         - Container restricted only for text alignment
       */}
-      <div className="container mx-auto px-6 md:px-12 mb-20 flex justify-between items-end">
+      <div className="container mx-auto px-6 md:px-12 mb-20">
         <h1 className="text-6xl md:text-9xl font-bold tracking-tighter text-black leading-none">
           Selected Works
         </h1>
-        <span className="hidden md:block text-sm font-bold tracking-widest uppercase mb-2">
-          (Works)
-        </span>
       </div>
 
       {/* FEED: Full Width Images
