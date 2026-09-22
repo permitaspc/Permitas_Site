@@ -13,6 +13,23 @@ body {
   @apply bg-white text-black;
 }
 
+.glass-header {
+  width: 100%;
+  background: rgb(0 0 0 / 18%);
+  backdrop-filter: blur(28px) saturate(1.5);
+  -webkit-backdrop-filter: blur(28px) saturate(1.5);
+}
+
+.glass-header-content {
+  @apply container mx-auto px-6 py-4.5;
+}
+
+@media (width >= 48rem) {
+  .glass-header-content {
+    @apply px-12 py-6;
+  }
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 ::-webkit-scrollbar {
   display: none;

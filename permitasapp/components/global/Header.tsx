@@ -17,10 +17,7 @@ export default function Header({ siteTitle, logo, navItems }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  // Determine theme based on path
-  // Home ("/") gets "dark" theme (White text on transparent/black), others get "light" (Black text on white)
-  // HOWEVER: The existing desktop header uses `mix-blend-difference` which handles contrast automatically.
-  // We need explicit theme for the MOBILE MENU background.
+  // The mobile menu follows page contrast.
   const isHome = pathname === "/";
   const mobileTheme = isHome ? "dark" : "light";
 
@@ -40,79 +37,79 @@ export default function Header({ siteTitle, logo, navItems }: HeaderProps) {
 
   return (
     <>
-      <header
-        className={`fixed left-0 w-full z-[70] py-6 md:py-8 mix-blend-difference text-white transition-all duration-300 ${
-          isHome ? "top-8 md:top-10" : "top-0"
-        }`}
-      >
-        <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
-          {/* Brand / Logo */}
-          <Link href="/" className="relative z-[70]">
-            {logo ? (
-              <div className="relative w-32 h-8 md:w-56 md:h-14">
-                <Image
-                  src={logo}
-                  alt={title}
-                  fill
-                  className="object-contain object-left"
-                  priority
-                />
-              </div>
-            ) : (
-              <span className="text-xl md:text-3xl font-bold tracking-tight uppercase">
-                {title}
-              </span>
-            )}
-          </Link>
+      <header className="fixed top-0 left-0 w-full z-[70] text-white transition-all duration-300">
+        <div className="glass-header">
+          <div className="glass-header-content">
+            <div className="flex justify-between items-center">
+              {/* Brand / Logo */}
+              <Link href="/" className="relative z-[70]">
+                {logo ? (
+                  <div className="relative w-24 h-6 md:w-42 md:h-10.5">
+                    <Image
+                      src={logo}
+                      alt={title}
+                      fill
+                      className="origin-left scale-200 object-contain object-left"
+                      priority
+                    />
+                  </div>
+                ) : (
+                  <span className="text-base md:text-2xl font-bold tracking-tight uppercase">
+                    {title}
+                  </span>
+                )}
+              </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:block">
-            <ul className="flex gap-8 md:gap-12 text-sm md:text-base font-medium tracking-wide uppercase">
-              {menu.map((item) => (
-                <li key={item.link}>
-                  <Link
-                    href={item.link}
-                    className="hover:underline underline-offset-4 decoration-1"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+              {/* Desktop Navigation */}
+              <nav className="hidden md:block">
+                <ul className="flex gap-8 md:gap-9 text-sm md:text-xs font-medium tracking-wide uppercase">
+                  {menu.map((item) => (
+                    <li key={item.link}>
+                      <Link
+                        href={item.link}
+                        className="hover:underline underline-offset-4 decoration-1"
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
 
-          {/* Mobile Menu Toggle (The "Equal" to "Box") */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden relative z-[70] w-10 h-10 flex flex-col justify-center items-center gap-1.5 focus:outline-none"
-            aria-label="Toggle Menu"
-          >
-            <AnimatePresence mode="wait">
-              {isOpen ? (
-                // Open State: Solid Box (Square)
-                <motion.div
-                  key="close"
-                  initial={{ scale: 0, opacity: 0, rotate: -90 }}
-                  animate={{ scale: 1, opacity: 1, rotate: 0 }}
-                  exit={{ scale: 0, opacity: 0, rotate: 90 }}
-                  transition={{ duration: 0.3 }}
-                  className="w-6 h-6 bg-white"
-                />
-              ) : (
-                // Closed State: Equal Sign (Two lines)
-                <motion.div
-                  key="menu"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="flex flex-col gap-1.5"
-                >
-                  <span className="block w-8 h-[2px] bg-white"></span>
-                  <span className="block w-8 h-[2px] bg-white"></span>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </button>
+              {/* Mobile Menu Toggle (The "Equal" to "Box") */}
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="md:hidden relative z-[70] w-7.5 h-7.5 flex flex-col justify-center items-center gap-1 focus:outline-none"
+                aria-label="Toggle Menu"
+              >
+                <AnimatePresence mode="wait">
+                  {isOpen ? (
+                    // Open State: Solid Box (Square)
+                    <motion.div
+                      key="close"
+                      initial={{ scale: 0, opacity: 0, rotate: -90 }}
+                      animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                      exit={{ scale: 0, opacity: 0, rotate: 90 }}
+                      transition={{ duration: 0.3 }}
+                      className="w-4.5 h-4.5 bg-white"
+                    />
+                  ) : (
+                    // Closed State: Equal Sign (Two lines)
+                    <motion.div
+                      key="menu"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="flex flex-col gap-1"
+                    >
+                      <span className="block w-6 h-[2px] bg-white"></span>
+                      <span className="block w-6 h-[2px] bg-white"></span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </button>
+            </div>
+          </div>
         </div>
       </header>
 
