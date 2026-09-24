@@ -7,6 +7,7 @@ interface FooterProps {
   contactPhone?: string;
   socialInstagram?: string;
   socialFacebook?: string;
+  whatsappNumber?: string;
   footerText?: string;
   siteTitle?: string;
   designedByText?: string;
@@ -18,12 +19,14 @@ export default function Footer({
   contactPhone,
   socialInstagram,
   socialFacebook,
+  whatsappNumber,
   footerText,
   siteTitle,
   designedByText,
   designedByLink,
 }: FooterProps) {
   const currentYear = new Date().getFullYear();
+  const whatsappDigits = whatsappNumber?.replace(/\D/g, "");
   console.log(
     "[Debug] Rendering Global Footer, socialFacebook:",
     socialFacebook,
@@ -49,12 +52,6 @@ export default function Footer({
                 className="hover:text-gray-400 transition-colors"
               >
                 Work
-              </Link>
-              <Link
-                href="/about"
-                className="hover:text-gray-400 transition-colors"
-              >
-                Studio
               </Link>
               <Link
                 href="/contact"
@@ -106,6 +103,16 @@ export default function Footer({
                     className="hover:text-gray-400"
                   >
                     Facebook ↗
+                  </a>
+                )}
+                {whatsappDigits && (
+                  <a
+                    href={`https://wa.me/${whatsappDigits}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-gray-400"
+                  >
+                    WhatsApp ↗
                   </a>
                 )}
               </div>

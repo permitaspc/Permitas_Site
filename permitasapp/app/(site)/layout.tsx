@@ -59,6 +59,7 @@ export default async function RootLayout({
             contactPhone={settings?.contactPhone || undefined}
             socialInstagram={settings?.socialInstagram || undefined}
             socialFacebook={settings?.socialFacebook || undefined}
+            whatsappNumber={settings?.whatsappNumber || undefined}
             footerText={settings?.footerText || undefined}
             siteTitle={settings?.siteTitle || undefined}
             designedByText={settings?.designedByText || undefined}

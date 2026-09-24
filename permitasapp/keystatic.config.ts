@@ -157,6 +157,10 @@ export default config({
         }),
         socialInstagram: fields.url({ label: "Instagram Link" }),
         socialFacebook: fields.url({ label: "Facebook Link" }),
+        whatsappNumber: fields.text({
+          label: "WhatsApp Number",
+          description: "Include the international country code, e.g. +44 7482 789852.",
+        }),
         contactEmail: fields.text({ label: "Official Email" }),
         contactPhone: fields.text({ label: "Phone Number" }),
         footerText: fields.text({ label: "Footer Copyright Text" }),
