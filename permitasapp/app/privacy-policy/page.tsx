@@ -1,4 +1,3 @@
-
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '@/keystatic.config';
 import { DocumentRenderer } from '@keystatic/core/renderer';
